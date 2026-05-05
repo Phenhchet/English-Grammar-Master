@@ -14,11 +14,7 @@
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 30px 30px;
             color: #1e293b;
-            display: flex;
-            flex-direction: column;
-            min-h-screen;
         }
-        main { flex-grow: 1; }
         .khmer-font { font-family: 'Kantumruy Pro', sans-serif; }
         
         .tense-card {
@@ -73,18 +69,37 @@
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(4px);
         }
+
+        .option-btn {
+            transition: all 0.2s ease;
+            border: 2px solid #f1f5f9;
+        }
+        .option-btn:hover {
+            border-color: #6366f1;
+            background-color: #f8fafc;
+        }
+        .option-btn.correct {
+            border-color: #10b981;
+            background-color: #ecfdf5;
+            color: #065f46;
+        }
+        .option-btn.wrong {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+            color: #991b1b;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased min-h-screen">
 
-    <nav class="max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+    <nav class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div onclick="window.location.reload()" class="flex items-center gap-3 cursor-pointer group">
+            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 group-active:scale-95">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
             </div>
-            <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">TenseMaster</h1>
+            <h1 class="text-xl font-extrabold text-slate-800 tracking-tight group-hover:text-indigo-600 transition-colors">TenseMaster</h1>
         </div>
         <div class="flex bg-slate-200/50 p-1.5 rounded-2xl">
             <button onclick="showHome()" class="px-6 py-2 rounded-xl text-sm font-bold transition-all bg-white shadow-sm text-indigo-600" id="nav-lessons">Lessons</button>
@@ -92,7 +107,7 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-8 w-full">
+    <main class="max-w-7xl mx-auto px-6 py-8">
         <div id="view-lessons" class="space-y-12">
             <div class="flex flex-col md:flex-row justify-between items-start gap-6">
                 <div>
@@ -106,8 +121,8 @@
                         <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tenses</div>
                     </div>
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center min-w-[100px]">
-                        <div class="text-3xl font-black text-indigo-600">120</div>
-                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Examples</div>
+                        <div class="text-3xl font-black text-indigo-600">30</div>
+                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Questions</div>
                     </div>
                 </div>
             </div>
@@ -117,7 +132,7 @@
         <div id="view-quiz-setup" class="hidden max-w-4xl mx-auto text-center space-y-12 py-12">
             <div class="space-y-4">
                 <h2 class="text-4xl font-black text-slate-900">Choose a Tense to Practice</h2>
-                <p class="khmer-font text-slate-500 text-lg">ជ្រើសរើសកាលណាមួយដើម្បីធ្វើលំហាត់អនុវត្តចំនួន ៣០ សំណួរ</p>
+                <p class="khmer-font text-slate-500 text-lg">ជ្រើសរើសកាលណាមួយដើម្បីធ្វើលំហាត់អនុវត្តចំនួន ៣០ សំណួរដែលមិនជាន់គ្នា</p>
             </div>
             <div id="quiz-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
         </div>
@@ -140,27 +155,13 @@
                 <div class="absolute top-0 left-0 w-full h-1 bg-slate-100">
                     <div id="quiz-progress" class="h-full bg-indigo-500 transition-all duration-300" style="width: 3%"></div>
                 </div>
-                <h2 id="question-text" class="text-3xl font-bold text-slate-800 leading-tight">...</h2>
+                <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-slate-800 leading-tight">...</h2>
                 <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <div id="feedback-text" class="h-6 font-bold text-sm"></div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full py-10 mt-20 border-t border-slate-200 bg-white/50 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4">
-            <div class="flex items-center gap-2 text-slate-400 text-sm font-medium">
-                <span>© 2024 TenseMaster</span>
-                <span class="text-slate-300">•</span>
-                <span>Education for All</span>
-            </div>
-            <p class="text-slate-600 font-bold">
-                Develp by <a href="https://www.facebook.com/surtphenhchet" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline decoration-indigo-200 underline-offset-4 transition-colors">Phenhchet</a>.
-            </p>
-        </div>
-    </footer>
-
-    <!-- Detailed Modal -->
     <div id="detail-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
         <div class="modal-overlay absolute inset-0" onclick="closeModal()"></div>
         <div class="bg-white w-full max-w-4xl max-h-full rounded-[2.5rem] shadow-2xl relative overflow-hidden flex flex-col z-10">
@@ -200,14 +201,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Modal Footer with Buttons -->
             <div class="p-6 md:px-10 bg-slate-50 border-t border-slate-100 flex flex-col md:flex-row gap-4">
                 <button id="btn-start-quiz" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-8 rounded-2xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     Start Practice Quiz
-                </button>
-                <button onclick="closeModal()" class="md:w-1/3 bg-white border border-slate-200 text-slate-600 font-bold py-4 px-8 rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
-                    Close Details
                 </button>
             </div>
         </div>
@@ -215,7 +212,6 @@
 
     <script>
         const fullData = [
-            // PRESENT TENSES
             {
                 name: "Present Simple",
                 kh: "បច្ចុប្បន្នកាលធម្មតា",
@@ -236,7 +232,8 @@
                     {en: "They speak English well.", kh: "ពួកគេនិយាយភាសាអង់គ្លេសបានល្អ។"},
                     {en: "The train leaves at 8 PM.", kh: "រថភ្លើងចេញដំណើរនៅម៉ោង ៨ យប់។"},
                     {en: "I am a teacher.", kh: "ខ្ញុំគឺជាគ្រូបង្រៀនម្នាក់។"}
-                ]
+                ],
+                verbs: ["eat", "work", "play", "study", "speak", "watch", "go", "read", "drink", "walk"]
             },
             {
                 name: "Present Continuous",
@@ -252,13 +249,9 @@
                     {en: "Look! It is raining.", kh: "មើលចុះ! វាកំពុងភ្លៀង។"},
                     {en: "They are playing football.", kh: "ពួកគេកំពុងលេងបាល់ទាត់។"},
                     {en: "She is cooking dinner.", kh: "នាងកំពុងស្លរអាហារពេលល្ងាច។"},
-                    {en: "Listen! Someone is singing.", kh: "ស្ដាប់ចុះ! មាននរណាម្នាក់កំពុងច្រៀង។"},
-                    {en: "Are you coming with us?", kh: "តើអ្នកមកជាមួយពួកយើងទេ?"},
-                    {en: "He is not working today.", kh: "គាត់មិនធ្វើការទេថ្ងៃនេះ។"},
-                    {en: "We are meeting them at 5.", kh: "ពួកយើងនឹងជួបពួកគេនៅម៉ោង ៥។"},
-                    {en: "What are you doing?", kh: "តើអ្នកកំពុងធ្វើអ្វី?"},
-                    {en: "The baby is sleeping.", kh: "ទារកកំពុងគេង។"}
-                ]
+                    {en: "Listen! Someone is singing.", kh: "ស្ដាប់ចុះ! មាននរណាម្នាក់កំពុងច្រៀង។"}
+                ],
+                verbs: ["running", "cooking", "writing", "sleeping", "listening", "waiting", "dancing"]
             },
             {
                 name: "Present Perfect",
@@ -271,16 +264,9 @@
                 signals: ["already", "yet", "ever", "never", "since", "for"],
                 examples: [
                     {en: "I have finished my homework.", kh: "ខ្ញុំបានធ្វើកិច្ចការផ្ទះរួចរាល់ហើយ។"},
-                    {en: "She has been to Japan twice.", kh: "នាងធ្លាប់ទៅប្រទេសជប៉ុនពីរដងហើយ។"},
-                    {en: "We have lived here for 10 years.", kh: "ពួកយើងរស់នៅទីនេះរយៈពេល ១០ ឆ្នាំហើយ។"},
-                    {en: "Have you ever seen a lion?", kh: "តើអ្នកធ្លាប់ឃើញតោទេ?"},
-                    {en: "They haven't called me yet.", kh: "ពួកគេមិនទាន់បានតេមកខ្ញុំនៅឡើយទេ។"},
-                    {en: "He has lost his keys.", kh: "គាត់បានបាត់សោររបស់គាត់។"},
-                    {en: "I've already eaten lunch.", kh: "ខ្ញុំបានញ៉ាំបាយថ្ងៃត្រង់រួចហើយ។"},
-                    {en: "She has written three books.", kh: "នាងបានសរសេរសៀវភៅចំនួន ៣ ក្បាលហើយ។"},
-                    {en: "It has stopped raining.", kh: "វាឈប់ភ្លៀងហើយ។"},
-                    {en: "We've just arrived.", kh: "ពួកយើងទើបតែមកដល់។"}
-                ]
+                    {en: "She has been to Japan twice.", kh: "នាងធ្លាប់ទៅប្រទេសជប៉ុនពីរដងហើយ។"}
+                ],
+                verbs: ["seen", "done", "gone", "eaten", "broken", "taken", "bought", "flown"]
             },
             {
                 name: "Present Perfect Continuous",
@@ -292,19 +278,10 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលចាប់ផ្តើមតាំងពីអតីតកាល ហើយបន្តមកដល់បច្ចុប្បន្ន (សង្កត់លើរយៈពេល)។",
                 signals: ["for", "since", "all day", "how long", "lately"],
                 examples: [
-                    {en: "I have been waiting for two hours.", kh: "ខ្ញុំបានកំពុងរង់ចាំអស់រយៈពេល ២ ម៉ោងហើយ។"},
-                    {en: "It has been raining all day.", kh: "វាបានកំពុងភ្លៀងពេញមួយថ្ងៃហើយ។"},
-                    {en: "How long have you been learning English?", kh: "តើអ្នកបានកំពុងរៀនភាសាអង់គ្លេសបានរយៈពេលប៉ុន្មានហើយ?"},
-                    {en: "She has been working here since 2015.", kh: "នាងបានកំពុងធ្វើការនៅទីនេះតាំងពីឆ្នាំ ២០១៥។"},
-                    {en: "They have been playing games since morning.", kh: "ពួកគេបានកំពុងលេងហ្គេមតាំងពីព្រឹក។"},
-                    {en: "We have been talking for a long time.", kh: "ពួកយើងបានកំពុងនិយាយគ្នាអស់រយៈពេលយ៉ាងយូរ។"},
-                    {en: "He has been studying hard lately.", kh: "គាត់បានកំពុងខំប្រឹងរៀននាពេលថ្មីៗនេះ។"},
-                    {en: "I have been living in this city all my life.", kh: "ខ្ញុំបានកំពុងរស់នៅក្នុងទីក្រុងនេះពេញមួយជីវិតរបស់ខ្ញុំ។"},
-                    {en: "Why have you been crying?", kh: "ហេតុអ្វីបានជាអ្នកយំ?"},
-                    {en: "She has been cleaning the house.", kh: "នាងបានកំពុងសម្អាតផ្ទះ។"}
-                ]
+                    {en: "I have been waiting for two hours.", kh: "ខ្ញុំបានកំពុងរង់ចាំអស់រយៈពេល ២ ម៉ោងហើយ។"}
+                ],
+                verbs: ["living", "studying", "working", "raining", "trying", "playing"]
             },
-            // PAST TENSES
             {
                 name: "Past Simple",
                 kh: "អតីតកាលធម្មតា",
@@ -315,17 +292,9 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលបានកើតឡើង និងបញ្ចប់សព្វគ្រប់ក្នុងអតីតកាល។",
                 signals: ["yesterday", "last week", "ago", "in 1990", "when"],
                 examples: [
-                    {en: "I went to school yesterday.", kh: "ខ្ញុំបានទៅសាលាកាលពីម្សិលមិញ។"},
-                    {en: "He didn't call me.", kh: "គាត់មិនបានតេមកខ្ញុំទេ។"},
-                    {en: "Did they arrive on time?", kh: "តើពួកគេមកដល់ទាន់ពេលទេ?"},
-                    {en: "She bought a new car last month.", kh: "នាងបានទិញឡានថ្មីកាលពីខែមុន។"},
-                    {en: "We visited Angkor Wat in 2020.", kh: "ពួកយើងបានទៅទស្សនាអង្គរវត្តក្នុងឆ្នាំ ២០២០។"},
-                    {en: "I saw a ghost last night.", kh: "ខ្ញុំបានឃើញខ្មោចកាលពីយប់មិញ។"},
-                    {en: "They played football on Sunday.", kh: "ពួកគេបានលេងបាល់ទាត់កាលពីថ្ងៃអាទិត្យ។"},
-                    {en: "He ate dinner at 7 PM.", kh: "គាត់បានញ៉ាំបាយល្ងាចនៅម៉ោង ៧។"},
-                    {en: "I lived in Japan for 3 years.", kh: "ខ្ញុំបានរស់នៅប្រទេសជប៉ុនរយៈពេល ៣ ឆ្នាំ។"},
-                    {en: "Who invented the light bulb?", kh: "តើនរណាជាអ្នកបង្កើតអំពូលភ្លើង?"}
-                ]
+                    {en: "I went to school yesterday.", kh: "ខ្ញុំបានទៅសាលាកាលពីម្សិលមិញ។"}
+                ],
+                verbs: ["went", "called", "visited", "saw", "bought", "sold", "lost", "met"]
             },
             {
                 name: "Past Continuous",
@@ -337,17 +306,9 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលកំពុងកើតឡើងនៅពេលណាមួយក្នុងអតីតកាល។",
                 signals: ["at that time", "while", "when", "all evening"],
                 examples: [
-                    {en: "I was sleeping at 10 PM.", kh: "ខ្ញុំកំពុងដេកនៅម៉ោង ១០ យប់។"},
-                    {en: "We were eating when she arrived.", kh: "ពួកយើងកំពុងញ៉ាំបាយនៅពេលនាងមកដល់។"},
-                    {en: "Were you watching TV?", kh: "តើអ្នកកំពុងមើលទូរទស្សន៍មែនទេ?"},
-                    {en: "It was raining all day yesterday.", kh: "វាកំពុងភ្លៀងពេញមួយថ្ងៃកាលពីម្សិលមិញ។"},
-                    {en: "She was doing her homework.", kh: "នាងកំពុងធ្វើកិច្ចការផ្ទះរបស់នាង។"},
-                    {en: "They were playing in the park.", kh: "ពួកគេកំពុងលេងនៅក្នុងសួន។"},
-                    {en: "I was thinking about you.", kh: "ខ្ញុំកំពុងគិតពីអ្នក។"},
-                    {en: "While I was driving, I saw an accident.", kh: "ខណៈពេលដែលខ្ញុំកំពុងបើកបរ ខ្ញុំបានឃើញគ្រោះថ្នាក់មួយ។"},
-                    {en: "He was talking on the phone.", kh: "គាត់កំពុងនិយាយទូរស័ព្ទ។"},
-                    {en: "What were they doing at noon?", kh: "តើពួកគេកំពុងធ្វើអ្វីនៅពេលថ្ងៃត្រង់?"}
-                ]
+                    {en: "I was sleeping at 10 PM.", kh: "ខ្ញុំកំពុងដេកនៅម៉ោង ១០ យប់។"}
+                ],
+                verbs: ["sleeping", "eating", "talking", "driving", "cleaning", "watching"]
             },
             {
                 name: "Past Perfect",
@@ -359,17 +320,9 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលបានបញ្ចប់មុនសកម្មភាពមួយទៀតក្នុងអតីតកាល។",
                 signals: ["before", "after", "by the time", "as soon as"],
                 examples: [
-                    {en: "I had eaten before I went out.", kh: "ខ្ញុំបានញ៉ាំបាយរួចហើយ មុនពេលខ្ញុំចេញទៅក្រៅ។"},
-                    {en: "The train had left when I arrived.", kh: "រថភ្លើងបានចេញបាត់ទៅហើយ នៅពេលដែលខ្ញុំមកដល់។"},
-                    {en: "Had you finished the report?", kh: "តើអ្នកបានបញ្ចប់របាយការណ៍ហើយឬនៅ?"},
-                    {en: "They had lived there for 5 years before they moved.", kh: "ពួកគេបានរស់នៅទីនោះ ៥ ឆ្នាំមុនពេលពួកគេផ្លាស់ប្តូរទីលំនៅ។"},
-                    {en: "She had already left when I called.", kh: "នាងបានចេញទៅបាត់ទៅហើយនៅពេលខ្ញុំតេទៅ។"},
-                    {en: "I had never seen such a beautiful place.", kh: "ខ្ញុំមិនដែលបានឃើញកន្លែងស្អាតបែបនេះពីមុនមកទេ។"},
-                    {en: "He had studied English before he went to USA.", kh: "គាត់បានរៀនភាសាអង់គ្លេសមុនពេលគាត់ទៅអាមេរិក។"},
-                    {en: "By the time I saw him, he had changed.", kh: "ត្រឹមពេលខ្ញុំឃើញគាត់ គាត់បានផ្លាស់ប្តូរទៅហើយ។"},
-                    {en: "After we had finished dinner, we went for a walk.", kh: "បន្ទាប់ពីពួកយើងបានញ៉ាំបាយល្ងាចរួច ពួកយើងក៏ចេញទៅដើរលេង។"},
-                    {en: "The film had already started.", kh: "ខ្សែភាពយន្តបានចាប់ផ្តើមបាត់ទៅហើយ។"}
-                ]
+                    {en: "I had eaten before I went out.", kh: "ខ្ញុំបានញ៉ាំបាយរួចហើយ មុនពេលខ្ញុំចេញទៅក្រៅ។"}
+                ],
+                verbs: ["finished", "left", "started", "seen", "known", "had"]
             },
             {
                 name: "Past Perfect Continuous",
@@ -381,19 +334,10 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលបានកើតឡើងបន្តបន្ទាប់រហូតដល់ចំណុចណាមួយក្នុងអតីតកាល។",
                 signals: ["for", "since", "before", "all morning"],
                 examples: [
-                    {en: "I had been working for 8 hours before I slept.", kh: "ខ្ញុំបានកំពុងធ្វើការអស់រយៈពេល ៨ ម៉ោង មុនពេលខ្ញុំចូលគេង។"},
-                    {en: "She had been crying before he came.", kh: "នាងបានកំពុងយំ មុនពេលគាត់មកដល់។"},
-                    {en: "Had they been living there long?", kh: "តើពួកគេបានកំពុងរស់នៅទីនោះយូរហើយមែនទេ?"},
-                    {en: "I had been waiting for an hour before the bus came.", kh: "ខ្ញុំបានកំពុងរង់ចាំអស់រយៈពេលមួយម៉ោងមុនពេលឡានក្រុងមកដល់។"},
-                    {en: "He had been studying all day.", kh: "គាត់បានកំពុងរៀនពេញមួយថ្ងៃ។"},
-                    {en: "We had been talking about it for weeks.", kh: "ពួកយើងបានកំពុងនិយាយអំពីវាអស់រយៈពេលជាច្រើនសប្តាហ៍។"},
-                    {en: "The ground was wet because it had been raining.", kh: "ដីសើមដោយសារតែវាបានកំពុងភ្លៀង។"},
-                    {en: "They had been playing for two hours.", kh: "ពួកគេបានកំពុងលេងអស់រយៈពេល ២ ម៉ោង។"},
-                    {en: "She was tired because she had been cleaning.", kh: "នាងហត់ដោយសារតែនាងបានកំពុងសម្អាត។"},
-                    {en: "He had been driving for 5 hours.", kh: "គាត់បានកំពុងបើកបរអស់រយៈពេល ៥ ម៉ោង។"}
-                ]
+                    {en: "I had been working for 8 hours before I slept.", kh: "ខ្ញុំបានកំពុងធ្វើការអស់រយៈពេល ៨ ម៉ោង មុនពេលខ្ញុំចូលគេង។"}
+                ],
+                verbs: ["crying", "waiting", "traveling", "playing", "reading"]
             },
-            // FUTURE TENSES
             {
                 name: "Future Simple",
                 kh: "អនាគតកាលធម្មតា",
@@ -404,17 +348,9 @@
                 usage: "ប្រើសម្រាប់សេចក្តីសម្រេចចិត្តភ្លាមៗ ការសន្យា ឬការទស្សន៍ទាយនាពេលអនាគត។",
                 signals: ["tomorrow", "next week", "soon", "later", "maybe"],
                 examples: [
-                    {en: "I will help you.", kh: "ខ្ញុំនឹងជួយអ្នក។"},
-                    {en: "It will not rain tomorrow.", kh: "វានឹងមិនភ្លៀងទេនៅថ្ងៃស្អែក។"},
-                    {en: "Will you marry me?", kh: "តើអ្នកនឹងរៀបការជាមួយខ្ញុំទេ?"},
-                    {en: "They will arrive soon.", kh: "ពួកគេនឹងមកដល់ឆាប់ៗនេះ។"},
-                    {en: "I think he will be a doctor.", kh: "ខ្ញុំគិតថាគាត់នឹងក្លាយជាគ្រូពេទ្យ។"},
-                    {en: "We will visit you next month.", kh: "ពួកយើងនឹងទៅសួរសុខទុក្ខអ្នកនៅខែក្រោយ។"},
-                    {en: "I'll call you later.", kh: "ខ្ញុំនឹងតេទៅអ្នកតាមក្រោយ។"},
-                    {en: "She won't come to the party.", kh: "នាងនឹងមិនមកចូលរួមកម្មវិធីជប់លៀងទេ។"},
-                    {en: "Will you open the door?", kh: "តើអ្នកនឹងបើកទ្វារទេ?"},
-                    {en: "Everything will be fine.", kh: "គ្រប់យ៉ាងនឹងល្អប្រសើរ។"}
-                ]
+                    {en: "I will help you.", kh: "ខ្ញុំនឹងជួយអ្នក។"}
+                ],
+                verbs: ["help", "call", "go", "buy", "be", "make", "find"]
             },
             {
                 name: "Future Continuous",
@@ -426,17 +362,9 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលនឹងកំពុងកើតឡើងនៅពេលណាមួយនាពេលអនាគត។",
                 signals: ["at this time tomorrow", "next year", "all day tomorrow"],
                 examples: [
-                    {en: "I will be flying to Paris tomorrow.", kh: "ខ្ញុំនឹងកំពុងហោះហើរទៅប៉ារីសនៅថ្ងៃស្អែក។"},
-                    {en: "They will be working at 9 AM.", kh: "ពួកគេនឹងកំពុងធ្វើការនៅម៉ោង ៩ ព្រឹក។"},
-                    {en: "Will you be staying here?", kh: "តើអ្នកនឹងកំពុងស្នាក់នៅទីនេះ mែនទេ?"},
-                    {en: "At 10 PM, I will be sleeping.", kh: "នៅម៉ោង ១០ យប់ ខ្ញុំនឹងកំពុងគេង।"},
-                    {en: "She will be cooking dinner when you arrive.", kh: "នាងនឹងកំពុងស្លរអាហារពេលល្ងាចនៅពេលអ្នកមកដល់។"},
-                    {en: "We will be waiting for you.", kh: "ពួកយើងនឹងកំពុងរង់ចាំអ្នក។"},
-                    {en: "What will you be doing tomorrow?", kh: "តើអ្នកនឹងកំពុងធ្វើអ្វីនៅថ្ងៃស្អែក?"},
-                    {en: "I will be studying all night.", kh: "ខ្ញុំនឹងកំពុងរៀនពេញមួយយប់។"},
-                    {en: "He will be driving to work.", kh: "គាត់នឹងកំពុងបើកបរទៅធ្វើការ។"},
-                    {en: "They will be having a meeting.", kh: "ពួកគេនឹងកំពុងមានកិច្ចប្រជុំមួយ។"}
-                ]
+                    {en: "I will be flying to Paris tomorrow.", kh: "ខ្ញុំនឹងកំពុងហោះហើរទៅប៉ារីសនៅថ្ងៃស្អែក។"}
+                ],
+                verbs: ["flying", "staying", "studying", "working", "having"]
             },
             {
                 name: "Future Perfect",
@@ -448,17 +376,9 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលនឹងបញ្ចប់មុនចំណុចណាមួយនាពេលអនាគត។",
                 signals: ["by", "by then", "by next year", "by the time"],
                 examples: [
-                    {en: "I will have finished my project by Monday.", kh: "ខ្ញុំនឹងបានបញ្ចប់គម្រោងរបស់ខ្ញុំត្រឹមថ្ងៃច័ន្ទ។"},
-                    {en: "She will have left by the time you arrive.", kh: "នាងនឹងបានចេញទៅបាត់ហើយ នៅពេលអ្នកមកដល់។"},
-                    {en: "Will they have arrived by dinner?", kh: "តើពួកគេនឹងបានមកដល់ត្រឹមពេលបាយល្ងាចទេ?"},
-                    {en: "By next month, I will have lived here for a year.", kh: "ត្រឹមខែក្រោយ ខ្ញុំនឹងបានរស់នៅទីនេះអស់រយៈពេលមួយឆ្នាំហើយ។"},
-                    {en: "He will have graduated by 2025.", kh: "គាត់នឹងបានបញ្ចប់ការសិក្សាត្រឹមឆ្នាំ ២០២៥។"},
-                    {en: "We will have eaten by 8 PM.", kh: "ពួកយើងនឹងបានញ៉ាំរួចរាល់ត្រឹមម៉ោង ៨ យប់។"},
-                    {en: "The rain will have stopped by then.", kh: "ភ្លៀងនឹងបានឈប់ត្រឹមពេលនោះ។"},
-                    {en: "I will have seen all the episodes.", kh: "ខ្ញុំនឹងបានមើលរឿងគ្រប់ភាគទាំងអស់។"},
-                    {en: "By the end of the day, I will have finished.", kh: "ត្រឹមដាច់ថ្ងៃនេះ ខ្ញុំនឹងបានបញ្ចប់។"},
-                    {en: "Will you have done it by tomorrow?", kh: "តើអ្នកនឹងបានធ្វើវារួចរាល់ត្រឹមថ្ងៃស្អែកទេ?"}
-                ]
+                    {en: "I will have finished my project by Monday.", kh: "ខ្ញុំនឹងបានបញ្ចប់គម្រោងរបស់ខ្ញុំត្រឹមថ្ងៃច័ន្ទ។"}
+                ],
+                verbs: ["graduated", "retired", "arrived", "closed", "lived"]
             },
             {
                 name: "Future Perfect Continuous",
@@ -470,19 +390,19 @@
                 usage: "ប្រើសម្រាប់សកម្មភាពដែលនឹងបន្តរហូតដល់ចំណុចណាមួយនាពេលអនាគត (សង្កត់លើរយៈពេល)។",
                 signals: ["for", "by the time", "by tomorrow"],
                 examples: [
-                    {en: "By next month, I will have been living here for 1 year.", kh: "ត្រឹមខែក្រោយ ខ្ញុំនឹងបានកំពុងរស់នៅទីនេះអស់រយៈពេល ១ ឆ្នាំហើយ។"},
-                    {en: "He will have been studying for 3 hours by 5 PM.", kh: "គាត់នឹងបានកំពុងរៀនអស់រយៈពេល ៣ ម៉ោង ត្រឹមម៉ោង ៥ ល្ងាច។"},
-                    {en: "Will you have been working long?", kh: "តើអ្នកនឹងបានកំពុងធ្វើការយូរហើយមែនទេ?"},
-                    {en: "By tomorrow, it will have been raining for two days.", kh: "ត្រឹមថ្ងៃស្អែក វាបានកំពុងភ្លៀងអស់រយៈពេលពីរថ្ងៃហើយ។"},
-                    {en: "I will have been waiting for two hours by the time she comes.", kh: "ខ្ញុំនឹងបានកំពុងរង់ចាំអស់រយៈពេល ២ ម៉ោងត្រឹមពេលនាងមកដល់។"},
-                    {en: "She will have been teaching for 20 years by next year.", kh: "នាងនឹងបានកំពុងបង្រៀនអស់រយៈពេល ២០ ឆ្នាំត្រឹមឆ្នាំក្រោយ។"},
-                    {en: "They will have been playing for a long time.", kh: "ពួកគេនឹងបានកំពុងលេងអស់រយៈពេលយ៉ាងយូរ។"},
-                    {en: "How long will you have been staying there?", kh: "តើអ្នកនឹងបានកំពុងស្នាក់នៅទីនោះរយៈពេលប៉ុន្មានហើយ?"},
-                    {en: "We will have been traveling for a week.", kh: "ពួកយើងនឹងបានកំពុងធ្វើដំណើរអស់រយៈពេលមួយសប្តាហ៍។"},
-                    {en: "He will have been sleeping for 10 hours.", kh: "គាត់នឹងបានកំពុងគេងអស់រយៈពេល ១០ ម៉ោង។"}
-                ]
+                    {en: "By next month, I will have been living here for 1 year.", kh: "ត្រឹមខែក្រោយ ខ្ញុំនឹងបានកំពុងរស់នៅទីនេះអស់រយៈពេល ១ ឆ្នាំហើយ។"}
+                ],
+                verbs: ["teaching", "practicing", "learning", "running"]
             }
         ];
+
+        const subjects = ["I", "You", "He", "She", "It", "We", "They", "The student", "My friends", "John"];
+        const objects = ["English", "dinner", "football", "a movie", "a book", "to school", "at home", "hard", "well"];
+
+        let currentTenseIndex = 0;
+        let score = 0;
+        let qCount = 0;
+        let currentCorrectAnswer = "";
 
         function renderLessons() {
             const grid = document.getElementById('tense-grid');
@@ -518,8 +438,8 @@
 
         function openModal(index) {
             const t = fullData[index];
+            currentTenseIndex = index;
             const modal = document.getElementById('detail-modal');
-            const btnQuiz = document.getElementById('btn-start-quiz');
             
             document.getElementById('modal-tag').className = `tag tag-${t.group} mb-3 inline-block`;
             document.getElementById('modal-tag').innerText = t.group;
@@ -531,7 +451,7 @@
             document.getElementById('modal-usage').innerText = t.usage;
             
             document.getElementById('modal-signals').innerHTML = t.signals.map(s => `<span class="signal-pill">${s}</span>`).join('');
-            document.getElementById('modal-examples').innerHTML = t.examples.map((ex, i) => `
+            document.getElementById('modal-examples').innerHTML = (t.examples || []).map((ex, i) => `
                 <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
                     <span class="w-6 h-6 flex-shrink-0 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-[10px] font-black text-slate-400">${i+1}</span>
                     <div>
@@ -541,8 +461,7 @@
                 </div>
             `).join('');
 
-            // Set up direct quiz button
-            btnQuiz.onclick = () => {
+            document.getElementById('btn-start-quiz').onclick = () => {
                 closeModal();
                 startQuiz(index);
             };
@@ -586,22 +505,76 @@
         function renderQuizGrid() {
             const grid = document.getElementById('quiz-grid');
             grid.innerHTML = fullData.map((t, i) => `
-                <button onclick="startQuiz(${i})" class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:border-indigo-500 hover:shadow-md transition-all text-left">
+                <button onclick="startQuiz(${i})" class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:border-indigo-500 hover:shadow-md transition-all text-left group">
                     <span class="text-[8px] font-black text-indigo-400 uppercase tracking-widest block mb-1">Tense ${i+1}</span>
-                    <h4 class="font-black text-slate-800 truncate">${t.name}</h4>
+                    <h4 class="font-black text-slate-800 truncate group-hover:text-indigo-600">${t.name}</h4>
                 </button>
             `).join('');
         }
 
-        let score = 0;
-        let qCount = 0;
+        function generateQuestion(tenseIndex) {
+            const tense = fullData[tenseIndex];
+            const sub = subjects[Math.floor(Math.random() * subjects.length)];
+            const verb = tense.verbs[Math.floor(Math.random() * tense.verbs.length)];
+            const obj = objects[Math.floor(Math.random() * objects.length)];
+            const signal = tense.signals[Math.floor(Math.random() * tense.signals.length)];
+
+            let question = "";
+            let correct = "";
+            let distractors = [];
+
+            const isThirdPerson = ["He", "She", "It", "John", "The student"].includes(sub);
+
+            switch(tense.name) {
+                case "Present Simple":
+                    question = `${sub} ________ ${obj} ${signal}.`;
+                    correct = isThirdPerson ? (verb === "go" ? "goes" : verb === "watch" ? "watches" : verb === "study" ? "studies" : verb + "s") : verb;
+                    distractors = [verb + "ing", "is " + verb, "has " + verb];
+                    break;
+                case "Present Continuous":
+                    question = `Look! ${sub} ________ ${obj} now.`;
+                    const be = sub === "I" ? "am" : isThirdPerson ? "is" : "are";
+                    correct = `${be} ${verb}`;
+                    distractors = [verb, "is " + verb.replace("ing", ""), "has been " + verb];
+                    break;
+                case "Present Perfect":
+                    question = `${sub} ________ ${obj} already.`;
+                    const have = isThirdPerson ? "has" : "have";
+                    correct = `${have} ${verb}`;
+                    distractors = [`${have} ${verb}ing`, "did " + verb, "is " + verb];
+                    break;
+                case "Past Simple":
+                    question = `${sub} ________ ${obj} ${signal}.`;
+                    correct = verb;
+                    distractors = [verb.replace("ed", ""), "is " + verb, "will " + verb];
+                    break;
+                case "Future Simple":
+                    question = `${sub} ________ ${obj} tomorrow.`;
+                    correct = `will ${verb}`;
+                    distractors = ["is " + verb, verb + "ed", "going to " + verb];
+                    break;
+                default:
+                    // Fallback generator for more complex tenses
+                    question = `${sub} ________ ${obj} ${signal}.`;
+                    correct = tense.pos.replace("S + ", "").replace("V1", verb).replace("V3", verb).replace("V-ing", verb);
+                    distractors = ["is " + verb, "was " + verb, "did " + verb];
+            }
+
+            return { 
+                text: question, 
+                answer: correct, 
+                options: [correct, ...distractors].sort(() => Math.random() - 0.5) 
+            };
+        }
 
         function startQuiz(index) {
+            currentTenseIndex = index;
             qCount = 0; score = 0;
             document.getElementById('view-lessons').classList.add('hidden');
             document.getElementById('view-quiz-setup').classList.add('hidden');
             document.getElementById('view-quiz-active').classList.remove('hidden');
             document.getElementById('quiz-title').innerText = fullData[index].name;
+            document.getElementById('feedback-text').innerText = "";
             setActiveNav('practice');
             nextQuestion();
         }
@@ -609,27 +582,52 @@
         function nextQuestion() {
             qCount++;
             if(qCount > 30) {
-                alert(`Quiz Finished! Your score: ${score}/30`);
-                showQuizSelection();
+                showResult();
                 return;
             }
             document.getElementById('q-current').innerText = qCount;
             document.getElementById('score-display').innerText = score;
             document.getElementById('quiz-progress').style.width = (qCount/30*100) + '%';
+            document.getElementById('feedback-text').innerText = "";
             
-            const sub = ["I", "She", "They", "He", "We"][Math.floor(Math.random()*5)];
-            document.getElementById('question-text').innerText = `${sub} ________ English. (Practice Question ${qCount})`;
+            const qData = generateQuestion(currentTenseIndex);
+            currentCorrectAnswer = qData.answer;
             
-            const options = ["study", "studies", "studying", "is studying"].sort(() => Math.random() - 0.5);
+            document.getElementById('question-text').innerText = qData.text;
             const container = document.getElementById('options-container');
-            container.innerHTML = options.map(opt => `
-                <button onclick="checkAnswer(true)" class="p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 hover:border-indigo-500 hover:bg-white transition-all">${opt}</button>
+            container.innerHTML = qData.options.map(opt => `
+                <button onclick="checkAnswer(this, '${opt}')" class="option-btn p-6 rounded-2xl font-bold text-slate-700 bg-white">${opt}</button>
             `).join('');
         }
 
-        function checkAnswer(isCorrect) {
-            if(isCorrect) score++;
-            nextQuestion();
+        function checkAnswer(btn, selected) {
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+
+            if(selected === currentCorrectAnswer) {
+                score++;
+                btn.classList.add('correct');
+                document.getElementById('feedback-text').innerText = "Excellent! Correct Answer.";
+                document.getElementById('feedback-text').className = "h-6 font-bold text-sm text-emerald-500";
+            } else {
+                btn.classList.add('wrong');
+                document.getElementById('feedback-text').innerText = `Oops! The correct answer was: ${currentCorrectAnswer}`;
+                document.getElementById('feedback-text').className = "h-6 font-bold text-sm text-rose-500";
+            }
+
+            setTimeout(nextQuestion, 1200);
+        }
+
+        function showResult() {
+            const container = document.getElementById('options-container');
+            document.getElementById('question-text').innerText = "Quiz Completed!";
+            container.innerHTML = `
+                <div class="col-span-full py-6 space-y-6">
+                    <div class="text-6xl font-black text-indigo-600">${Math.round(score/30*100)}%</div>
+                    <p class="font-bold text-slate-500">You got ${score} out of 30 questions right.</p>
+                    <button onclick="showQuizSelection()" class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black shadow-lg hover:bg-indigo-700 transition-all">Back to Practice List</button>
+                </div>
+            `;
         }
 
         window.onload = renderLessons;
