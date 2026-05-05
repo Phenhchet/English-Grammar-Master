@@ -2,625 +2,615 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Grammar Master - ជំនាញកាលទាំង ១២</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TenseMaster Pro | English Learning</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;700&family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --font-kh: 'Kantumruy Pro', sans-serif;
             --font-en: 'Plus Jakarta Sans', sans-serif;
+            --brand-primary: #6366f1;
+            --brand-secondary: #8b5cf6;
+            --bg-main: #f8fafc;
         }
         body {
             font-family: var(--font-en);
-            background-color: #f8fafc;
-            font-size: 18px;
+            background-color: var(--bg-main);
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 30px 30px;
         }
-        .khmer-font {
-            font-family: var(--font-kh);
-            line-height: 1.8;
+        .khmer-font { font-family: var(--font-kh); }
+        .page-tab { display: none; }
+        .page-tab.active { display: block; animation: fadeIn 0.4s ease-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .heading-kh {
-            font-family: var(--font-kh);
-            font-weight: 700;
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
-        .card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .page-tab {
-            display: none;
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
         }
-        .page-tab.active {
-            display: block;
+
+        .tense-card:hover {
+            transform: scale(1.02);
+            transition: all 0.2s ease;
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .formula-badge {
-            background: #eff6ff;
-            color: #1d4ed8;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-weight: bold;
+
+        /* Smooth scroll for the guides */
+        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        .formula-box {
+            background: #f1f5f9;
+            border-left: 4px solid var(--brand-primary);
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="text-slate-900">
 
-    <!-- Navigation -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-            <div class="flex items-center gap-4 cursor-pointer" onclick="showTab('lessons')">
-                <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+    <!-- Hero Header -->
+    <header class="bg-white/70 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showTab('lessons')">
+                <div class="w-10 h-10 btn-primary rounded-xl flex items-center justify-center text-white shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-black tracking-tight text-slate-900 leading-none">GRAMMAR<span class="text-blue-600">PRO</span></h1>
-                    <p class="khmer-font text-sm font-bold text-slate-400 uppercase tracking-tighter">Tense Mastery / ជំនាញកាលទាំង ១២</p>
+                    <h1 class="text-xl font-extrabold tracking-tight">Tense<span class="gradient-text">Master</span></h1>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Expert Learning Path</p>
                 </div>
             </div>
-            <div class="hidden md:flex gap-4 bg-slate-100 p-2 rounded-2xl">
-                <button onclick="showTab('lessons')" class="nav-btn px-6 py-3 rounded-xl font-bold transition-all bg-white text-blue-600 shadow-sm" id="btn-lessons">
-                    <span class="block text-xs uppercase tracking-widest opacity-60">Home</span>
-                    <span class="khmer-font text-base">មេរៀន</span>
-                </button>
-                <button onclick="showTab('quiz-selection')" class="nav-btn px-6 py-3 rounded-xl font-bold transition-all text-slate-500 hover:text-slate-900" id="btn-quiz-selection">
-                    <span class="block text-xs uppercase tracking-widest opacity-60">Quiz Mode</span>
-                    <span class="khmer-font text-base">ជ្រើសរើសតេស្ត</span>
-                </button>
+            
+            <nav class="hidden md:flex bg-slate-100 p-1.5 rounded-2xl gap-1">
+                <button onclick="showTab('lessons')" id="nav-lessons" class="px-6 py-2 rounded-xl font-bold text-sm transition-all bg-white text-indigo-600 shadow-sm">Lessons</button>
+                <button onclick="showTab('quiz-selection')" id="nav-quiz" class="px-6 py-2 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-indigo-600">Practice Quiz</button>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-indigo-50 border-2 border-indigo-100 flex items-center justify-center">
+                    <span class="text-indigo-600 font-bold text-xs">A+</span>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="max-w-7xl mx-auto p-6 md:p-12">
+    <main class="max-w-7xl mx-auto p-6 lg:p-10">
 
-        <!-- Lessons Tab -->
+        <!-- Tab 1: Visual Learning Dashboard -->
         <div id="lessons" class="page-tab active">
-            <div class="mb-16 border-l-8 border-blue-600 pl-8">
-                <h2 class="text-5xl font-black text-slate-900 mb-2">English Tense Library</h2>
-                <h2 class="text-4xl font-black text-blue-600 mb-6 heading-kh">បណ្ណាល័យមេរៀនកាលភាសាអង់គ្លេស</h2>
-                <p class="khmer-font text-xl text-slate-500 max-w-3xl">មគ្គុទ្ទេសក៍ពេញលេញអំពីកាលទាំង ១២ រួមមានរូបមន្ត របៀបប្រើប្រាស់ និងឧទាហរណ៍ជាក់ស្តែងបកប្រែជាភាសាខ្មែរ។</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="lessons-grid"></div>
-        </div>
-
-        <!-- Details Tab -->
-        <div id="details" class="page-tab">
-            <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-                <button onclick="showTab('lessons')" class="flex items-center gap-3 text-blue-600 font-bold hover:gap-5 transition-all khmer-font text-xl group">
-                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
-                        </svg>
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-600 text-[10px] font-bold uppercase mb-3">Comprehensive Guide</span>
+                    <h2 class="text-4xl font-extrabold text-slate-900 mb-2">Master English Tenses</h2>
+                    <p class="text-slate-500 khmer-font">សិក្សាអំពីកាលទាំង ១២ ក្នុងភាសាអង់គ្លេសជាមួយការបកស្រាយលម្អិត និងឧទាហរណ៍ជាក់ស្ដែង</p>
+                </div>
+                <div class="flex gap-3">
+                    <div class="bg-white p-4 rounded-2xl glass-card border border-indigo-50 text-center min-w-[100px]">
+                        <p class="text-2xl font-black gradient-text">12</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Tenses</p>
                     </div>
-                    ថយក្រោយ
-                </button>
-                <button id="start-quiz-btn" class="bg-blue-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-3">
-                    <span class="khmer-font">ធ្វើតេស្តមេរៀននេះ</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+                    <div class="bg-white p-4 rounded-2xl glass-card border border-indigo-50 text-center min-w-[100px]">
+                        <p class="text-2xl font-black gradient-text">36</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Examples</p>
+                    </div>
+                </div>
             </div>
-            <div id="details-content" class="bg-white rounded-[40px] border border-slate-200 p-8 md:p-12 card-shadow overflow-hidden"></div>
+
+            <!-- Tense Explorer Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="tense-grid-container">
+                <!-- Injected via JS -->
+            </div>
         </div>
 
-        <!-- Quiz Selection Tab -->
+        <!-- Quiz Selection -->
         <div id="quiz-selection" class="page-tab">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl font-black text-slate-900 mb-2">Practice Center</h2>
-                <h2 class="text-3xl font-black text-blue-600 mb-6 heading-kh">មជ្ឈមណ្ឌលលំហាត់អនុវត្ត</h2>
-                <p class="khmer-font text-slate-500">ជ្រើសរើសកាលណាមួយដែលអ្នកចង់ធ្វើការតេស្តសមត្ថភាព (សរុបមាន ៣០ សំណួរក្នុងមួយកាល)។</p>
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-4 khmer-font">សាកល្បងសមត្ថភាព</h2>
+                <p class="text-slate-500 khmer-font">ជ្រើសរើសមេរៀនដែលអ្នកចង់អនុវត្ត ដើម្បីពង្រឹងការចងចាំ និងការប្រើប្រាស់ឱ្យបានត្រឹមត្រូវ។</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="selection-grid"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="selection-grid"></div>
         </div>
 
         <!-- Quiz Play View -->
         <div id="quiz-play" class="page-tab">
             <div class="max-w-3xl mx-auto">
-                <div class="bg-white rounded-[40px] border border-slate-200 overflow-hidden card-shadow p-10 relative">
-                    <div id="quiz-header" class="mb-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="px-4 py-1 bg-blue-50 text-blue-600 rounded-full font-bold text-sm" id="active-tense-label">Tense</span>
-                            <span class="font-bold text-slate-400" id="quiz-progress">1/30</span>
-                        </div>
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                            <div id="quiz-progress-bar" class="bg-blue-600 h-full transition-all duration-300" style="width: 0%"></div>
-                        </div>
+                <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-indigo-100 border border-slate-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-slate-100">
+                        <div id="quiz-progress-bar" class="h-full btn-primary transition-all duration-500" style="width: 0%"></div>
                     </div>
-                    <div id="quiz-question-container"></div>
+                    
+                    <div class="flex justify-between items-center mb-10 mt-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs" id="quiz-progress-num">1</span>
+                            <span id="quiz-title-display" class="font-bold text-slate-400 text-sm">Present Simple</span>
+                        </div>
+                        <button onclick="showTab('quiz-selection')" class="text-slate-400 hover:text-slate-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div id="question-area" class="min-h-[300px]"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Quiz Result View -->
+        <!-- Result Tab -->
         <div id="quiz-result" class="page-tab">
-            <div class="max-w-2xl mx-auto text-center bg-white p-16 rounded-[40px] border border-slate-200 card-shadow">
-                <div class="w-24 h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+            <div class="max-w-md mx-auto text-center bg-white p-12 rounded-[3rem] shadow-2xl border border-slate-50">
+                <div id="result-animation" class="mb-6 relative inline-block">
+                    <div class="w-24 h-24 rounded-full btn-primary flex items-center justify-center text-white text-4xl shadow-xl animate-bounce">🏆</div>
                 </div>
-                <h2 class="text-4xl font-black text-slate-900 mb-2">Test Completed!</h2>
-                <h2 class="text-3xl font-black text-blue-600 mb-8 heading-kh">ការតេស្តត្រូវបានបញ្ចប់!</h2>
-                <div class="text-[100px] font-black text-slate-900 leading-none mb-4" id="result-score">0/30</div>
-                <div id="result-comment" class="mb-10 text-xl khmer-font text-slate-500"></div>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="showTab('lessons')" class="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold hover:bg-slate-800 transition-all khmer-font">ត្រឡប់ទៅមេរៀន</button>
-                    <button onclick="retryCurrentQuiz()" class="bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold hover:bg-blue-700 transition-all khmer-font">សាកល្បងម្តងទៀត</button>
+                <h2 class="text-3xl font-black mb-2 khmer-font">អបអរសាទរ!</h2>
+                <div id="final-score" class="text-7xl font-black gradient-text my-8">0 / 0</div>
+                <p id="result-text" class="khmer-font text-slate-500 mb-10 leading-relaxed text-lg"></p>
+                <div class="flex flex-col gap-3">
+                    <button id="retry-btn" class="w-full btn-primary text-white py-4 rounded-2xl font-bold shadow-lg transition-transform hover:scale-[1.02]">សាកល្បងម្ដងទៀត</button>
+                    <button onclick="showTab('lessons')" class="w-full bg-slate-100 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-200 transition-colors">ត្រឡប់ទៅមេរៀន</button>
                 </div>
             </div>
         </div>
+
     </main>
 
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-6">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="bg-white rounded-[2.5rem] max-w-lg w-full p-8 relative z-10 shadow-2xl">
+            <div id="fb-icon" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner"></div>
+            <h3 id="fb-text" class="text-2xl font-black text-center mb-8 khmer-font"></h3>
+            
+            <div class="space-y-4 mb-10">
+                <div class="bg-indigo-50/50 rounded-2xl p-4 border border-indigo-100">
+                    <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1">The Correct Answer</p>
+                    <p id="fb-correct" class="text-xl font-bold text-indigo-700"></p>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 khmer-font">ការពន្យល់</p>
+                    <p id="fb-exp" class="khmer-font text-slate-600 leading-relaxed"></p>
+                </div>
+            </div>
+            
+            <button id="next-btn" class="w-full btn-primary text-white py-4 rounded-2xl font-bold khmer-font text-lg shadow-lg">បន្តទៅមុខទៀត</button>
+        </div>
+    </div>
+
+    <!-- Mobile Nav (Bottom Bar) -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-slate-100 p-4 flex justify-around items-center z-50">
+        <button onclick="showTab('lessons')" class="flex flex-col items-center gap-1 group">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center transition-colors bg-indigo-50 text-indigo-600" id="m-nav-lessons">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            </div>
+            <span class="text-[10px] font-bold text-indigo-600 khmer-font">មេរៀន</span>
+        </button>
+        <button onclick="showTab('quiz-selection')" class="flex flex-col items-center gap-1 group">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center transition-colors text-slate-400" id="m-nav-quiz">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400 khmer-font">ធ្វើតេស្ត</span>
+        </button>
+    </nav>
+
     <script>
-        // Data generator for 30 questions per tense
-        const generate30Questions = (tenseType) => {
-            const subjects = ["I", "You", "He", "She", "It", "We", "They", "The students", "The teacher", "My father", "Sarah", "John and Mary", "Everyone", "Nobody", "The cat"];
-            const verbs = [
-                { v1: "eat", v2: "ate", v3: "eaten", ing: "eating" },
-                { v1: "play", v2: "played", v3: "played", ing: "playing" },
-                { v1: "study", v2: "studied", v3: "studied", ing: "studying" },
-                { v1: "go", v2: "went", v3: "gone", ing: "going" },
-                { v1: "watch", v2: "watched", v3: "watched", ing: "watching" },
-                { v1: "drink", v2: "drank", v3: "drunk", ing: "drinking" },
-                { v1: "write", v2: "wrote", v3: "written", ing: "writing" },
-                { v1: "read", v2: "read", v3: "read", ing: "reading" },
-                { v1: "work", v2: "worked", v3: "worked", ing: "working" },
-                { v1: "sleep", v2: "slept", v3: "slept", ing: "sleeping" }
-            ];
-
-            const qs = [];
-            for (let i = 0; i < 30; i++) {
-                const sub = subjects[i % subjects.length];
-                const verb = verbs[i % verbs.length];
-                let question = "";
-                let options = [];
-                let correctIdx = 0;
-
-                switch(tenseType) {
-                    case 'present-simple':
-                        const isSingular = ["He", "She", "It", "The teacher", "My father", "Sarah", "The cat"].includes(sub);
-                        const vCorrect = isSingular ? (verb.v1.endsWith('h') ? verb.v1+'es' : verb.v1+'s') : verb.v1;
-                        question = `${sub} ____ (${verb.v1}) every day.`;
-                        options = [vCorrect, verb.ing, verb.v2, verb.v3].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(vCorrect);
-                        break;
-                    case 'present-continuous':
-                        const be = (sub === "I") ? "am" : (["He", "She", "It", "The teacher", "My father", "Sarah", "The cat"].includes(sub) ? "is" : "are");
-                        question = `Look! ${sub} ____ (${verb.v1}) now.`;
-                        options = [`${be} ${verb.ing}`, `${be} ${verb.v1}`, verb.ing, verb.v2].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`${be} ${verb.ing}`);
-                        break;
-                    case 'present-perfect':
-                        const p_have = (["He", "She", "It", "The teacher", "My father", "Sarah", "The cat"].includes(sub)) ? "has" : "have";
-                        question = `${sub} already ____ (${verb.v1}) lunch.`;
-                        options = [`${p_have} ${verb.v3}`, `${p_have} ${verb.v2}`, `have ${verb.v1}`, verb.v3].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`${p_have} ${verb.v3}`);
-                        break;
-                    case 'present-perfect-continuous':
-                        const ppc_have = (["He", "She", "It", "The teacher", "My father", "Sarah", "The cat"].includes(sub)) ? "has" : "have";
-                        question = `${sub} ____ (${verb.v1}) for two hours.`;
-                        options = [`${ppc_have} been ${verb.ing}`, `${ppc_have} ${verb.ing}`, `been ${verb.ing}`, `is ${verb.ing}`].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`${ppc_have} been ${verb.ing}`);
-                        break;
-                    case 'past-simple':
-                        question = `${sub} ____ (${verb.v1}) yesterday.`;
-                        options = [verb.v2, verb.v1, verb.v3, verb.ing].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(verb.v2);
-                        break;
-                    case 'past-continuous':
-                        const p_be = (["I", "He", "She", "It", "The teacher", "My father", "Sarah", "The cat"].includes(sub)) ? "was" : "were";
-                        question = `${sub} ____ (${verb.v1}) when I called.`;
-                        options = [`${p_be} ${verb.ing}`, `${p_be} ${verb.v1}`, verb.v2, `were ${verb.ing}`].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`${p_be} ${verb.ing}`);
-                        break;
-                    case 'past-perfect':
-                        question = `${sub} ____ (${verb.v1}) before the bell rang.`;
-                        options = [`had ${verb.v3}`, `has ${verb.v3}`, `did ${verb.v3}`, verb.v2].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`had ${verb.v3}`);
-                        break;
-                    case 'past-perfect-continuous':
-                        question = `${sub} ____ (${verb.v1}) for years before they moved.`;
-                        options = [`had been ${verb.ing}`, `has been ${verb.ing}`, `was ${verb.ing}`, `been ${verb.ing}`].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`had been ${verb.ing}`);
-                        break;
-                    case 'future-simple':
-                        question = `${sub} ____ (${verb.v1}) tomorrow morning.`;
-                        options = [`will ${verb.v1}`, `will ${verb.ing}`, `is ${verb.v1}`, verb.v2].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`will ${verb.v1}`);
-                        break;
-                    case 'future-continuous':
-                        question = `This time tomorrow, ${sub} ____ (${verb.v1}).`;
-                        options = [`will be ${verb.ing}`, `will ${verb.ing}`, `is ${verb.ing}`, `be ${verb.ing}`].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`will be ${verb.ing}`);
-                        break;
-                    case 'future-perfect':
-                        question = `By next week, ${sub} ____ (${verb.v1}) the project.`;
-                        options = [`will have ${verb.v3}`, `will have ${verb.v2}`, `will ${verb.v3}`, `have ${verb.v3}`].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`will have ${verb.v3}`);
-                        break;
-                    case 'future-perfect-continuous':
-                        question = `By midnight, ${sub} ____ (${verb.v1}) for ten hours.`;
-                        options = [`will have been ${verb.ing}`, `will been ${verb.ing}`, `will have ${verb.ing}`, `have been ${verb.ing}`].sort(() => Math.random() - 0.5);
-                        correctIdx = options.indexOf(`will have been ${verb.ing}`);
-                        break;
-                    default:
-                        question = "Sample question?";
-                        options = ["A", "B", "C", "D"];
-                        correctIdx = 0;
-                }
-                qs.push({ q: question, a: options, c: correctIdx });
-            }
-            return qs;
-        };
-
-        const TENSES_DB = [
+        // Use the same TENSES data structure but with enhanced UI rendering logic
+        const TENSES = [
             {
-                id: 'present-simple',
-                title: 'Present Simple',
+                id: 'pres-sim',
+                en: 'Present Simple',
                 kh: 'បច្ចុប្បន្នកាលធម្មតា',
-                usage: 'Habits, general truths, and permanent states.',
-                usageKh: 'ប្រើសម្រាប់ទម្លាប់ ការពិតទូទៅ និងស្ថានភាពអចិន្ត្រៃយ៍។',
-                formula: { pos: 'S + V1 (s/es)', neg: 'S + do/does + not + V1', que: 'Do/Does + S + V1?' },
-                signals: 'always, usually, often, every day, never',
+                group: 'Present',
+                formula: '<b>(+)</b> S + V1 (s/es)<br><b>(-)</b> S + do/does + not + V1<br><b>(?)</b> Do/Does + S + V1?',
+                usage: 'សកម្មភាពទម្លាប់ ការពិតជាសកល ឬតារាងពេលវេលា។',
+                signals: 'always, usually, often, every day, sometimes',
                 examples: [
-                    { en: "I study English every day.", kh: "ខ្ញុំរៀនភាសាអង់គ្លេសរាល់ថ្ងៃ។" },
-                    { en: "She doesn't like coffee.", kh: "នាងមិនចូលចិត្តកាហ្វេទេ។" },
-                    { en: "The sun rises in the east.", kh: "ព្រះអាទិត្យរះនៅទិសខាងកើត។" }
+                    {e: "She drinks milk every morning.", k: "នាងញ៉ាំទឹកដោះគោរាល់ព្រឹក។"},
+                    {e: "The sun rises in the east.", k: "ព្រះអាទិត្យរះនៅទិសខាងកើត។"},
+                    {e: "I don't play games on weekdays.", k: "ខ្ញុំមិនលេងហ្គេមនៅថ្ងៃធ្វើការទេ។"}
                 ],
-                questions: generate30Questions('present-simple')
+                questions: [
+                    {q: "He ____ to the gym every day.", a: ["go", "goes", "going", "gone"], c: 1, exp: "ជាមួយ He/She/It កិរិយាសព្ទត្រូវថែម s/es ។"},
+                    {q: "They ____ like spicy food.", a: ["doesn't", "don't", "not", "isn't"], c: 1, exp: "ជាមួយ They យើងប្រើ do/don't ។"}
+                ]
             },
             {
-                id: 'present-continuous',
-                title: 'Present Continuous',
+                id: 'pres-cont',
+                en: 'Present Continuous',
                 kh: 'បច្ចុប្បន្នកាលកំពុងបន្ត',
-                usage: 'Actions happening right now or temporary situations.',
-                usageKh: 'សកម្មភាពដែលកំពុងកើតឡើងនៅពេលនេះ ឬស្ថានភាពបណ្តោះអាសន្ន។',
-                formula: { pos: 'S + am/is/are + V-ing', neg: 'S + am/is/are + not + V-ing', que: 'Am/Is/Are + S + V-ing?' },
+                group: 'Present',
+                formula: '<b>(+)</b> S + am/is/are + V-ing<br><b>(-)</b> S + am/is/are + not + V-ing<br><b>(?)</b> Am/Is/Are + S + V-ing?',
+                usage: 'សកម្មភាពកំពុងកើតឡើងនៅពេលនិយាយ ឬគម្រោងនាពេលអនាគត។',
                 signals: 'now, at the moment, look!, listen!',
                 examples: [
-                    { en: "I am studying English now.", kh: "ខ្ញុំកំពុងរៀនភាសាអង់គ្លេសឥឡូវនេះ។" },
-                    { en: "Look! It is raining.", kh: "មើលចុះ! វាកំពុងតែភ្លៀង។" },
-                    { en: "They are playing football right now.", kh: "ពួកគេកំពុងលេងបាល់ទាត់នៅពេលនេះ។" }
+                    {e: "I am studying English now.", k: "ខ្ញុំកំពុងរៀនភាសាអង់គ្លេសឥឡូវនេះ។"},
+                    {e: "Look! It is raining.", k: "មើលហ្ន៎! ភ្លៀងកំពុងធ្លាក់។"},
+                    {e: "They are playing football.", k: "ពួកគេកំពុងលេងបាល់ទាត់។"}
                 ],
-                questions: generate30Questions('present-continuous')
+                questions: [
+                    {q: "Listen! Someone ____ the piano.", a: ["play", "plays", "is playing", "are playing"], c: 2, exp: "Listen! បញ្ជាក់ថាហេតុការណ៍កំពុងកើតឡើង។"}
+                ]
             },
             {
-                id: 'present-perfect',
-                title: 'Present Perfect',
-                kh: 'បច្ចុប្បន្នកាលបរិបូរណ៍',
-                usage: 'Actions in the past with no specific time, or started in past and continue now.',
-                usageKh: 'សកម្មភាពដែលបានកើតឡើងក្នុងអតីតកាលដោយមិនបញ្ជាក់ពេល ឬចាប់ផ្តើមពីអតីតកាលដល់បច្ចុប្បន្ន។',
-                formula: { pos: 'S + have/has + V3', neg: 'S + have/has + not + V3', que: 'Have/Has + S + V3?' },
-                signals: 'already, yet, just, ever, never, since, for',
+                id: 'pres-perf',
+                en: 'Present Perfect',
+                kh: 'បច្ចុប្បន្នកាលបរិបូណ៌',
+                group: 'Present',
+                formula: '<b>(+)</b> S + have/has + V3<br><b>(-)</b> S + have/has + not + V3<br><b>(?)</b> Have/Has + S + V3?',
+                usage: 'សកម្មភាពដែលបានកើតឡើង និងមានឥទ្ធិពលមកដល់បច្ចុប្បន្ន ឬបទពិសោធន៍។',
+                signals: 'already, yet, ever, never, since, for',
                 examples: [
-                    { en: "I have seen that movie.", kh: "ខ្ញុំបានមើលរឿងនោះហើយ។" },
-                    { en: "She has lived here since 2010.", kh: "នាងបានរស់នៅទីនេះតាំងពីឆ្នាំ ២០១០។" },
-                    { en: "We haven't finished yet.", kh: "ពួកយើងមិនទាន់បានបញ្ចប់នៅឡើយទេ។" }
+                    {e: "I have finished my homework.", k: "ខ្ញុំបានធ្វើកិច្ចការផ្ទះរួចរាល់ហើយ។"},
+                    {e: "She has been to Japan twice.", k: "នាងធ្លាប់ទៅប្រទេសជប៉ុនពីរដងហើយ។"},
+                    {e: "We haven't seen him since Monday.", k: "ពួកយើងមិនបានជួបគេតាំងពីថ្ងៃចន្ទមក។"}
                 ],
-                questions: generate30Questions('present-perfect')
+                questions: [
+                    {q: "____ you ever ____ a tiger?", a: ["Did / see", "Have / seen", "Do / see", "Has / seen"], c: 1, exp: "Experience (បទពិសោធន៍) ប្រើ Present Perfect (Have + V3)។"}
+                ]
             },
             {
-                id: 'present-perfect-continuous',
-                title: 'Present Perfect Continuous',
-                kh: 'បច្ចុប្បន្នកាលបរិបូរណ៍កំពុងបន្ត',
-                usage: 'Actions that started in the past and are still continuing (emphasis on duration).',
-                usageKh: 'សកម្មភាពដែលចាប់ផ្តើមតាំងពីអតីតកាល ហើយនៅបន្តរហូតដល់បច្ចុប្បន្ន (សង្កត់លើរយៈពេល)។',
-                formula: { pos: 'S + have/has + been + V-ing', neg: 'S + have/has + not + been + V-ing', que: 'Have/Has + S + been + V-ing?' },
-                signals: 'for, since, all day, lately',
+                id: 'pres-perf-cont',
+                en: 'Present Perfect Continuous',
+                kh: 'បច្ចុប្បន្នកាលបរិបូណ៌កំពុងបន្ត',
+                group: 'Present',
+                formula: '<b>(+)</b> S + have/has + been + V-ing<br><b>(-)</b> S + have/has + not + been + V-ing<br><b>(?)</b> Have/Has + S + been + V-ing?',
+                usage: 'សកម្មភាពដែលចាប់ផ្ដើមតាំងពីអតីតកាល ហើយនៅតែបន្តមកដល់បច្ចុប្បន្ន។',
+                signals: 'for, since, all morning, how long',
                 examples: [
-                    { en: "I have been waiting for two hours.", kh: "ខ្ញុំបានកំពុងរង់ចាំអស់រយៈពេល ២ ម៉ោងហើយ។" },
-                    { en: "It has been raining all day.", kh: "វាបានកំពុងភ្លៀងពេញមួយថ្ងៃហើយ។" },
-                    { en: "He has been working here since Monday.", kh: "គាត់បានកំពុងធ្វើការនៅទីនេះតាំងពីថ្ងៃច័ន្ទ។" }
+                    {e: "It has been raining for two hours.", k: "ភ្លៀងបានធ្លាក់អស់រយៈពេលពីរម៉ោងហើយ (នៅតែធ្លាក់)។"},
+                    {e: "I have been waiting for you all morning.", k: "ខ្ញុំបានរង់ចាំអ្នកពេញមួយព្រឹកតែម្ដង។"},
+                    {e: "How long have you been learning English?", k: "តើអ្នករៀនភាសាអង់គ្លេសបានរយៈពេលប៉ុន្មានមកហើយ?"}
                 ],
-                questions: generate30Questions('present-perfect-continuous')
+                questions: [
+                    {q: "She is tired because she ____ since 8 AM.", a: ["works", "has worked", "is working", "has been working"], c: 3, exp: "សកម្មភាពដែលបន្តមកដល់ឥឡូវដែលធ្វើឱ្យហត់ ប្រើ Continuous form។"}
+                ]
             },
             {
-                id: 'past-simple',
-                title: 'Past Simple',
+                id: 'past-sim',
+                en: 'Past Simple',
                 kh: 'អតីតកាលធម្មតា',
-                usage: 'Completed actions in the past.',
-                usageKh: 'សកម្មភាពដែលបានបញ្ចប់រួចរាល់នៅក្នុងអតីតកាល។',
-                formula: { pos: 'S + V2', neg: 'S + did + not + V1', que: 'Did + S + V1?' },
-                signals: 'yesterday, last week, ago, in 1999',
+                group: 'Past',
+                formula: '<b>(+)</b> S + V2<br><b>(-)</b> S + did + not + V1<br><b>(?)</b> Did + S + V1?',
+                usage: 'សកម្មភាពដែលបានបញ្ចប់រួចរាល់ទាំងស្រុងក្នុងអតីតកាល។',
+                signals: 'yesterday, ago, last week, in 1990',
                 examples: [
-                    { en: "I went to school yesterday.", kh: "ខ្ញុំបានទៅសាលាកាលពីម្សិលមិញ។" },
-                    { en: "They didn't call me last night.", kh: "ពួកគេមិនបានតេមកខ្ញុំទេកាលពីយប់មិញ។" },
-                    { en: "She bought a car last month.", kh: "នាងបានទិញឡានកាលពីខែមុន។" }
+                    {e: "I visited Siem Reap last month.", k: "ខ្ញុំបានទៅលេងសៀមរាបកាលពីខែមុន។"},
+                    {e: "Did you watch the movie yesterday?", k: "តើអ្នកបានមើលរឿងហ្នឹងកាលពីម្សិលមិញទេ?"},
+                    {e: "They didn't go to school.", k: "ពួកគេមិនបានទៅសាលារៀនទេ។"}
                 ],
-                questions: generate30Questions('past-simple')
+                questions: [
+                    {q: "I ____ a new car last week.", a: ["buy", "bought", "buying", "buys"], c: 1, exp: "Last week គឺជាពាក្យសម្គាល់អតីតកាល ប្រើ V2 (bought)។"}
+                ]
             },
             {
-                id: 'past-continuous',
-                title: 'Past Continuous',
+                id: 'past-cont',
+                en: 'Past Continuous',
                 kh: 'អតីតកាលកំពុងបន្ត',
-                usage: 'Actions that were in progress at a specific time in the past.',
-                usageKh: 'សកម្មភាពដែលកំពុងតែកើតឡើងនៅពេលណាមួយក្នុងអតីតកាល។',
-                formula: { pos: 'S + was/were + V-ing', neg: 'S + was/were + not + V-ing', que: 'Was/Were + S + V-ing?' },
-                signals: 'while, when, at that time',
+                group: 'Past',
+                formula: '<b>(+)</b> S + was/were + V-ing<br><b>(-)</b> S + was/were + not + V-ing<br><b>(?)</b> Was/Were + S + V-ing?',
+                usage: 'សកម្មភាពដែលកំពុងកើតឡើងនៅពេលណាមួយក្នុងអតីតកាល។',
+                signals: 'while, when, at 8 PM yesterday',
                 examples: [
-                    { en: "I was sleeping at 10 PM yesterday.", kh: "ខ្ញុំកំពុងតែគេងនៅម៉ោង ១០ យប់កាលពីម្សិលមិញ។" },
-                    { en: "We were eating when she arrived.", kh: "ពួកយើងកំពុងតែញ៉ាំបាយនៅពេលនាងមកដល់។" },
-                    { en: "What were you doing at 8 AM?", kh: "តើអ្នកកំពុងធ្វើអ្វីនៅម៉ោង ៨ ព្រឹក?" }
+                    {e: "I was sleeping when you called.", k: "ខ្ញុំកំពុងដេកនៅពេលដែលអ្នកខលមក។"},
+                    {e: "They were playing while it rained.", k: "ពួកគេកំពុងលេង ខណៈពេលដែលភ្លៀងធ្លាក់។"},
+                    {e: "What were you doing at 7 PM?", k: "តើអ្នកកំពុងធ្វើអ្វីនៅម៉ោង ៧ យប់មិញ?"}
                 ],
-                questions: generate30Questions('past-continuous')
+                questions: [
+                    {q: "While I ____, the phone rang.", a: ["cook", "was cooking", "cooked", "am cooking"], c: 1, exp: "ខណៈពេលកំពុងធ្វើអ្វីមួយក្នុងអតីតកាល ប្រើ Past Continuous ។"}
+                ]
             },
             {
-                id: 'past-perfect',
-                title: 'Past Perfect',
-                kh: 'អតីតកាលបរិបូរណ៍',
-                usage: 'An action that was completed before another action in the past.',
-                usageKh: 'សកម្មភាពដែលបានបញ្ចប់រួចរាល់មុនសកម្មភាពមួយទៀតក្នុងអតីតកាល។',
-                formula: { pos: 'S + had + V3', neg: 'S + had + not + V3', que: 'Had + S + V3?' },
-                signals: 'before, after, by the time, already',
+                id: 'past-perf',
+                en: 'Past Perfect',
+                kh: 'អតីតកាលបរិបូណ៌',
+                group: 'Past',
+                formula: '<b>(+)</b> S + had + V3<br><b>(-)</b> S + had + not + V3<br><b>(?)</b> Had + S + V3?',
+                usage: 'សកម្មភាពដែលបានបញ្ចប់មុនសកម្មភាពមួយទៀតក្នុងអតីតកាល។',
+                signals: 'before, after, by the time',
                 examples: [
-                    { en: "I had eaten before I went out.", kh: "ខ្ញុំបានញ៉ាំបាយរួចហើយ មុនពេលខ្ញុំចេញទៅក្រៅ។" },
-                    { en: "The train had left when I arrived.", kh: "រថភ្លើងបានចេញបាត់ទៅហើយ នៅពេលខ្ញុំមកដល់។" },
-                    { en: "She had finished the work by 5 PM.", kh: "នាងបានបញ្ចប់ការងារត្រឹមម៉ោង ៥ ល្ងាច។" }
+                    {e: "The train had left when I arrived.", k: "រថភ្លើងបានចេញផុតទៅហើយ នៅពេលដែលខ្ញុំមកដល់។"},
+                    {e: "I had eaten dinner before you came.", k: "ខ្ញុំបានញ៉ាំបាយល្ងាចរួចហើយ មុនពេលអ្នកមកដល់។"},
+                    {e: "He had already finished the work.", k: "គាត់បានធ្វើការងារនោះចប់រួចរាល់បាត់ទៅហើយ។"}
                 ],
-                questions: generate30Questions('past-perfect')
+                questions: [
+                    {q: "When we got to the cinema, the film ____.", a: ["starts", "has started", "had started", "starting"], c: 2, exp: "សកម្មភាពដែលកើតឡើងមុនគេក្នុងអតីតកាល ប្រើ Had + V3 ។"}
+                ]
             },
             {
-                id: 'past-perfect-continuous',
-                title: 'Past Perfect Continuous',
-                kh: 'អតីតកាលបរិបូរណ៍កំពុងបន្ត',
-                usage: 'An action that started in past and continued up until another point in the past.',
-                usageKh: 'សកម្មភាពដែលបានកំពុងកើតឡើងជាបន្តបន្ទាប់ រហូតដល់ចំណុចណាមួយក្នុងអតីតកាល។',
-                formula: { pos: 'S + had + been + V-ing', neg: 'S + had + not + been + V-ing', que: 'Had + S + been + V-ing?' },
+                id: 'past-perf-cont',
+                en: 'Past Perfect Continuous',
+                kh: 'អតីតកាលបរិបូណ៌កំពុងបន្ត',
+                group: 'Past',
+                formula: '<b>(+)</b> S + had + been + V-ing<br><b>(-)</b> S + had + not + been + V-ing<br><b>(?)</b> Had + S + been + V-ing?',
+                usage: 'សកម្មភាពដែលបានបន្តរហូតដល់ពេលណាមួយក្នុងអតីតកាល។',
                 signals: 'for, since, before',
                 examples: [
-                    { en: "I had been working for 8 hours before I slept.", kh: "ខ្ញុំបានកំពុងធ្វើការអស់រយៈពេល ៨ ម៉ោង មុនពេលខ្ញុំគេង។" },
-                    { en: "She had been crying before he came.", kh: "នាងបានកំពុងយំ មុនពេលគាត់មកដល់។" },
-                    { en: "They had been living there for years.", kh: "ពួកគេបានកំពុងរស់នៅទីនោះអស់ជាច្រើនឆ្នាំ។" }
+                    {e: "They had been playing for an hour.", k: "ពួកគេបានលេងអស់រយៈពេលមួយម៉ោងមកហើយ (មុនពេលឈប់)។"},
+                    {e: "I had been working since morning.", k: "ខ្ញុំបានធ្វើការតាំងពីព្រឹកមកម្ល៉េះ។"},
+                    {e: "She had been crying before she left.", k: "នាងបានយំយ៉ាងខ្លាំងមុនពេលនាងចាកចេញទៅ។"}
                 ],
-                questions: generate30Questions('past-perfect-continuous')
+                questions: [
+                    {q: "He ____ for 2 hours when he arrived.", a: ["was driving", "had been driving", "drove", "drives"], c: 1, exp: "សកម្មភាពបន្តដែលចប់មុនពេលមួយទៀតក្នុងអតីតកាល។"}
+                ]
             },
             {
-                id: 'future-simple',
-                title: 'Future Simple',
+                id: 'fut-sim',
+                en: 'Future Simple',
                 kh: 'អនាគតកាលធម្មតា',
-                usage: 'Decisions at the moment, promises, or predictions.',
-                usageKh: 'ការសម្រេចចិត្តភ្លាមៗ ការសន្យា ឬការទស្សន៍ទាយនាពេលអនាគត។',
-                formula: { pos: 'S + will + V1', neg: 'S + will + not + V1', que: 'Will + S + V1?' },
-                signals: 'tomorrow, next week, soon, maybe',
+                group: 'Future',
+                formula: '<b>(+)</b> S + will + V1<br><b>(-)</b> S + will + not (won\'t) + V1<br><b>(?)</b> Will + S + V1?',
+                usage: 'ការសម្រេចចិត្តភ្លាមៗ ការសន្យា ឬការទស្សន៍ទាយ។',
+                signals: 'tomorrow, next week, soon, in the future',
                 examples: [
-                    { en: "I will help you with your work.", kh: "ខ្ញុំនឹងជួយអ្នកនូវការងាររបស់អ្នក។" },
-                    { en: "It will rain tomorrow.", kh: "វានឹងភ្លៀងនៅថ្ងៃស្អែក។" },
-                    { en: "Will you marry me?", kh: "តើអ្នកនឹងរៀបការជាមួយខ្ញុំទេ?" }
+                    {e: "I will call you tomorrow.", k: "ខ្ញុំនឹងខលទៅអ្នកនៅថ្ងៃស្អែក។"},
+                    {e: "It will rain this evening.", k: "វានឹងមានភ្លៀងធ្លាក់នៅល្ងាចនេះ។"},
+                    {e: "I promise I won't tell anyone.", k: "ខ្ញុំសន្យាថា ខ្ញុំនឹងមិនប្រាប់អ្នកណាម្នាក់ឡើយ។"}
                 ],
-                questions: generate30Questions('future-simple')
+                questions: [
+                    {q: "I think it ____ rain later.", a: ["will", "is", "be", "won't be"], c: 0, exp: "ការទស្សន៍ទាយ (Prediction) ប្រើ Will ។"}
+                ]
             },
             {
-                id: 'future-continuous',
-                title: 'Future Continuous',
+                id: 'fut-cont',
+                en: 'Future Continuous',
                 kh: 'អនាគតកាលកំពុងបន្ត',
-                usage: 'Actions that will be in progress at a specific time in the future.',
-                usageKh: 'សកម្មភាពដែលនឹងកំពុងតែកើតឡើងនៅពេលណាមួយនាពេលអនាគត។',
-                formula: { pos: 'S + will + be + V-ing', neg: 'S + will + not + be + V-ing', que: 'Will + S + be + V-ing?' },
-                signals: 'at this time tomorrow, next year',
+                group: 'Future',
+                formula: '<b>(+)</b> S + will + be + V-ing<br><b>(-)</b> S + will + not + be + V-ing<br><b>(?)</b> Will + S + be + V-ing?',
+                usage: 'សកម្មភាពដែលនឹងកំពុងកើតឡើងនៅពេលណាមួយក្នុងអនាគត។',
+                signals: 'this time tomorrow, at 9 AM next Sunday',
                 examples: [
-                    { en: "I will be flying to Paris tomorrow morning.", kh: "ខ្ញុំនឹងកំពុងហោះហើរទៅប៉ារីសនៅព្រឹកស្អែក។" },
-                    { en: "They will be working at 9 AM tomorrow.", kh: "ពួកគេនឹងកំពុងធ្វើការនៅម៉ោង ៩ ព្រឹកស្អែក។" },
-                    { en: "At midnight, we will be sleeping.", kh: "នៅពាក់កណ្តាលអធ្រាត្រ ពួកយើងនឹងកំពុងគេង។" }
+                    {e: "I will be flying to Paris tomorrow.", k: "ខ្ញុំនឹងកំពុងហោះហើរទៅប៉ារីសនៅថ្ងៃស្អែកពេលនេះ។"},
+                    {e: "They will be playing games tonight.", k: "ពួកគេនឹងកំពុងលេងហ្គេមនៅយប់នេះ។"},
+                    {e: "Will you be working this weekend?", k: "តើអ្នកនឹងកំពុងធ្វើការនៅចុងសប្ដាហ៍នេះមែនទេ?"}
                 ],
-                questions: generate30Questions('future-continuous')
+                questions: [
+                    {q: "At 10 PM tonight, I ____.", a: ["will sleep", "sleep", "will be sleeping", "sleeping"], c: 2, exp: "សកម្មភាពកំពុងកើតឡើងនៅពេលជាក់លាក់ក្នុងអនាគត។"}
+                ]
             },
             {
-                id: 'future-perfect',
-                title: 'Future Perfect',
-                kh: 'អនាគតកាលបរិបូរណ៍',
-                usage: 'An action that will be completed before a specific time in the future.',
-                usageKh: 'សកម្មភាពដែលនឹងត្រូវបញ្ចប់រួចរាល់ មុនចំណុចណាមួយនាពេលអនាគត។',
-                formula: { pos: 'S + will + have + V3', neg: 'S + will + not + have + V3', que: 'Will + S + have + V3?' },
-                signals: 'by, by then, by next year',
+                id: 'fut-perf',
+                en: 'Future Perfect',
+                kh: 'អនាគតកាលបរិបូណ៌',
+                group: 'Future',
+                formula: '<b>(+)</b> S + will + have + V3<br><b>(-)</b> S + will + not + have + V3<br><b>(?)</b> Will + S + have + V3?',
+                usage: 'សកម្មភាពដែលនឹងត្រូវបញ្ចប់រួចរាល់នៅពេលណាមួយក្នុងអនាគត។',
+                signals: 'by then, by next year, by 5 PM',
                 examples: [
-                    { en: "I will have finished my project by Monday.", kh: "ខ្ញុំនឹងបានបញ្ចប់គម្រោងរបស់ខ្ញុំត្រឹមថ្ងៃច័ន្ទ។" },
-                    { en: "She will have left when you arrive.", kh: "នាងនឹងបានចេញទៅបាត់ហើយ នៅពេលអ្នកមកដល់។" },
-                    { en: "They will have graduated by next year.", kh: "ពួកគេនឹងបានបញ្ចប់ការសិក្សាត្រឹមឆ្នាំក្រោយ។" }
+                    {e: "I will have finished the report by 5.", k: "ខ្ញុំនឹងធ្វើរបាយការណ៍នេះចប់នៅម៉ោង ៥។"},
+                    {e: "They will have left by the time you arrive.", k: "ពួកគេនឹងចាកចេញបាត់ហើយ នៅពេលដែលអ្នកមកដល់។"},
+                    {e: "She will have graduated by next year.", k: "នាងនឹងបញ្ចប់ការសិក្សានៅឆ្នាំក្រោយ។"}
                 ],
-                questions: generate30Questions('future-perfect')
+                questions: [
+                    {q: "By next month, we ____ our house.", a: ["will build", "will have built", "built", "build"], c: 1, exp: "សកម្មភាពដែលនឹងចប់រួចរាល់ (Will have + V3)។"}
+                ]
             },
             {
-                id: 'future-perfect-continuous',
-                title: 'Future Perfect Continuous',
-                kh: 'អនាគតកាលបរិបូរណ៍កំពុងបន្ត',
-                usage: 'An action that will continue up until a point in the future (duration emphasis).',
-                usageKh: 'សកម្មភាពដែលបានកំពុងកើតឡើងជាបន្តបន្ទាប់ រហូតដល់ចំណុចណាមួយនាពេលអនាគត។',
-                formula: { pos: 'S + will + have + been + V-ing', neg: 'S + will + not + have + been + V-ing', que: 'Will + S + have + been + V-ing?' },
-                signals: 'for, by the time',
+                id: 'fut-perf-cont',
+                en: 'Future Perfect Continuous',
+                kh: 'អនាគតកាលបរិបូណ៌កំពុងបន្ត',
+                group: 'Future',
+                formula: '<b>(+)</b> S + will + have + been + V-ing<br><b>(-)</b> S + will + not + have + been + V-ing<br><b>(?)</b> Will + S + have + been + V-ing?',
+                usage: 'សកម្មភាពដែលបន្តរហូតដល់ពេលណាមួយក្នុងអនាគត។',
+                signals: 'for, by next month',
                 examples: [
-                    { en: "By next month, I will have been living here for 1 year.", kh: "ត្រឹមខែក្រោយ ខ្ញុំនឹងបានកំពុងរស់នៅទីនេះអស់រយៈពេល ១ ឆ្នាំហើយ។" },
-                    { en: "He will have been studying for 3 hours by 5 PM.", kh: "គាត់នឹងបានកំពុងរៀនអស់រយៈពេល ៣ ម៉ោង ត្រឹមម៉ោង ៥ ល្ងាច។" },
-                    { en: "We will have been traveling for two weeks.", kh: "ពួកយើងនឹងបានកំពុងធ្វើដំណើអស់រយៈពេល ២ សប្តាហ៍។" }
+                    {e: "I will have been working here for 10 years.", k: "ខ្ញុំនឹងបានធ្វើការនៅទីនេះអស់រយៈពេល ១០ឆ្នាំ (គិតត្រឹមពេលហ្នឹង)។"},
+                    {e: "She will have been sleeping for 8 hours.", k: "នាងនឹងបានដេកអស់រយៈពេល ៨ម៉ោងមកហើយ។"},
+                    {e: "How long will they have been living here?", k: "តើពួកគេនឹងរស់នៅទីនេះបានរយៈពេលប៉ុន្មានមកហើយ?"}
                 ],
-                questions: generate30Questions('future-perfect-continuous')
+                questions: [
+                    {q: "By 2025, I ____ English for 5 years.", a: ["will learn", "will have been learning", "learn", "learned"], c: 1, exp: "រយៈពេលបន្តនៃសកម្មភាពក្នុងអនាគត។"}
+                ]
             }
         ];
 
-        let currentQuizTense = null;
-        let currentQuestionIdx = 0;
-        let quizScore = 0;
+        let curIdx = 0, curTense = null, score = 0;
 
-        function showTab(tabId) {
-            document.querySelectorAll('.page-tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+        function showTab(t) {
+            document.querySelectorAll('.page-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(t).classList.add('active');
             
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm'));
-            const activeBtn = document.getElementById('btn-' + (tabId.includes('quiz') || tabId === 'details' ? 'lessons' : tabId));
-            if (activeBtn) activeBtn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+            // UI Navigation Update
+            const tabs = ['lessons', 'quiz-selection'];
+            tabs.forEach(tab => {
+                const desktopBtn = document.getElementById(`nav-${tab}`);
+                const mobileBtn = document.getElementById(`m-nav-${tab}`);
+                if (tab === t || (t.includes('quiz') && tab === 'quiz-selection')) {
+                    desktopBtn?.classList.replace('text-slate-500', 'text-indigo-600');
+                    desktopBtn?.classList.add('bg-white', 'shadow-sm');
+                    mobileBtn?.classList.replace('text-slate-400', 'text-indigo-600');
+                    mobileBtn?.parentElement.classList.add('bg-indigo-50');
+                } else {
+                    desktopBtn?.classList.replace('text-indigo-600', 'text-slate-500');
+                    desktopBtn?.classList.remove('bg-white', 'shadow-sm');
+                    mobileBtn?.classList.replace('text-indigo-600', 'text-slate-400');
+                    mobileBtn?.parentElement.classList.remove('bg-indigo-50');
+                }
+            });
             window.scrollTo(0,0);
         }
 
-        function renderLessons() {
-            const grid = document.getElementById('lessons-grid');
-            const selGrid = document.getElementById('selection-grid');
+        function init() {
+            const grid = document.getElementById('tense-grid-container');
+            const quizGrid = document.getElementById('selection-grid');
             
-            grid.innerHTML = TENSES_DB.map(t => `
-                <div class="bg-white rounded-[40px] border border-slate-200 p-8 card-shadow hover:-translate-y-2 transition-all flex flex-col h-full">
-                    <h3 class="text-2xl font-black text-slate-900 mb-1">${t.title}</h3>
-                    <p class="khmer-font text-blue-600 font-bold text-lg mb-4">${t.kh}</p>
-                    <p class="text-slate-500 text-sm mb-1 italic line-clamp-2">${t.usage}</p>
-                    <p class="khmer-font text-slate-400 text-base mb-8 flex-grow line-clamp-2">${t.usageKh}</p>
-                    <button onclick="viewTense('${t.id}')" class="bg-slate-900 text-white rounded-2xl py-4 font-bold hover:bg-blue-600 transition-all active:scale-95 text-center khmer-font">
-                        ចូលរៀនមេរៀននេះ
-                    </button>
-                </div>
-            `).join('');
+            TENSES.forEach(t => {
+                // Tense Card for Lessons
+                grid.innerHTML += `
+                    <div class="glass-card rounded-[2.5rem] p-8 border border-slate-100 flex flex-col tense-card">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h3 class="text-2xl font-extrabold text-slate-800 leading-tight">${t.en}</h3>
+                                <p class="khmer-font text-indigo-500 font-semibold text-sm">${t.kh}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase ${getGroupColor(t.group)}">${t.group}</span>
+                        </div>
 
-            selGrid.innerHTML = TENSES_DB.map(t => `
-                <button onclick="startQuiz('${t.id}')" class="bg-white border border-slate-200 p-6 rounded-3xl card-shadow hover:border-blue-600 transition-all text-left group">
-                    <h4 class="font-black text-slate-900 group-hover:text-blue-600 transition-colors">${t.title}</h4>
-                    <p class="khmer-font text-sm text-slate-400">${t.kh}</p>
-                    <div class="mt-4 text-xs font-bold text-blue-600 uppercase tracking-widest">${t.questions.length} Questions</div>
-                </button>
-            `).join('');
-        }
+                        <div class="formula-box p-4 rounded-2xl mb-6">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Formulas</p>
+                            <div class="text-xs text-slate-700 leading-relaxed">${t.formula}</div>
+                        </div>
 
-        function viewTense(id) {
-            const t = TENSES_DB.find(x => x.id === id);
-            const content = document.getElementById('details-content');
-            document.getElementById('start-quiz-btn').onclick = () => startQuiz(id);
-            
-            content.innerHTML = `
-                <div class="mb-12 text-center">
-                    <h2 class="text-5xl font-black text-slate-900 mb-2">${t.title}</h2>
-                    <p class="khmer-font text-2xl text-blue-600 font-bold">${t.kh}</p>
-                </div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-                    <div class="space-y-8">
-                        <div>
-                            <h4 class="font-black text-slate-900 mb-4 khmer-font text-xl border-b pb-2">១. រូបមន្ត (Formula)</h4>
-                            <div class="space-y-4 bg-slate-50 p-6 rounded-3xl border border-slate-100">
-                                <div class="flex items-center gap-3"><span class="formula-badge">(+)</span> <span class="font-mono font-bold text-blue-800">${t.formula.pos}</span></div>
-                                <div class="flex items-center gap-3"><span class="formula-badge">(-)</span> <span class="font-mono font-bold text-blue-800">${t.formula.neg}</span></div>
-                                <div class="flex items-center gap-3"><span class="formula-badge">(?)</span> <span class="font-mono font-bold text-blue-800">${t.formula.que}</span></div>
+                        <div class="mb-6">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 khmer-font">របៀបប្រើប្រាស់</p>
+                            <p class="khmer-font text-sm text-slate-600 leading-relaxed">${t.usage}</p>
+                        </div>
+
+                        <div class="mb-8">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Signal Words</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${t.signals.split(', ').map(word => `<span class="px-2 py-1 bg-white border border-slate-100 rounded-lg text-[10px] font-bold text-indigo-500">${word}</span>`).join('')}
                             </div>
                         </div>
-                        <div>
-                            <h4 class="font-black text-slate-900 mb-4 khmer-font text-xl border-b pb-2">២. ពាក្យសម្គាល់ (Signal Words)</h4>
-                            <p class="bg-blue-50 border border-blue-100 p-5 rounded-2xl text-blue-700 font-bold tracking-wide">${t.signals}</p>
-                        </div>
-                    </div>
-                    <div class="space-y-8">
-                        <div>
-                            <h4 class="font-black text-slate-900 mb-4 khmer-font text-xl border-b pb-2">៣. របៀបប្រើប្រាស់ (Usage)</h4>
-                            <div class="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm">
-                                <p class="text-slate-800 font-bold mb-2 text-lg">${t.usage}</p>
-                                <p class="khmer-font text-slate-500">${t.usageKh}</p>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="font-black text-slate-900 mb-4 khmer-font text-xl border-b pb-2">៤. ឧទាហរណ៍ជាក់ស្តែង (Real-world Examples)</h4>
-                            <div class="space-y-4">
-                                ${t.examples.map(ex => `
-                                    <div class="p-5 bg-slate-50 rounded-2xl border-l-4 border-blue-600">
-                                        <p class="font-bold text-slate-900 mb-1">${ex.en}</p>
-                                        <p class="khmer-font text-blue-600 text-sm">→ ${ex.kh}</p>
+
+                        <div class="mt-auto">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Example Usage</p>
+                            <div class="space-y-3">
+                                ${t.examples.slice(0, 2).map(ex => `
+                                    <div class="group">
+                                        <p class="text-xs font-bold text-slate-800">${ex.e}</p>
+                                        <p class="khmer-font text-[10px] text-slate-400">${ex.k}</p>
                                     </div>
                                 `).join('')}
                             </div>
                         </div>
                     </div>
-                </div>
+                `;
 
-                <div class="mt-12 overflow-x-auto">
-                    <h4 class="font-black text-slate-900 mb-6 khmer-font text-xl">តារាងសង្ខេបមេរៀន (Summary Table)</h4>
-                    <table class="w-full text-left border-collapse bg-white rounded-2xl overflow-hidden">
-                        <thead>
-                            <tr class="bg-slate-900 text-white">
-                                <th class="p-4 khmer-font">ផ្នែក</th>
-                                <th class="p-4 khmer-font">ព័ត៌មានលម្អិត</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b"><td class="p-4 font-bold khmer-font">ឈ្មោះកាល</td><td class="p-4">${t.title} (${t.kh})</td></tr>
-                            <tr class="border-b"><td class="p-4 font-bold khmer-font">រូបមន្ត (+)</td><td class="p-4 font-mono">${t.formula.pos}</td></tr>
-                            <tr class="border-b"><td class="p-4 font-bold khmer-font">សញ្ញាសម្គាល់</td><td class="p-4">${t.signals}</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            `;
-            showTab('details');
+                // Quiz Selection Card
+                quizGrid.innerHTML += `
+                    <button onclick="startQuiz('${t.id}')" class="bg-white p-6 rounded-[2rem] shadow-lg shadow-slate-200/50 hover:shadow-indigo-100 border border-transparent hover:border-indigo-200 transition-all text-left group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:btn-primary group-hover:text-white transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-lg">${t.en}</h4>
+                                <p class="khmer-font text-xs text-slate-400">${t.kh}</p>
+                            </div>
+                        </div>
+                    </button>
+                `;
+            });
+        }
+
+        function getGroupColor(group) {
+            switch(group) {
+                case 'Present': return 'bg-emerald-50 text-emerald-600';
+                case 'Past': return 'bg-orange-50 text-orange-600';
+                case 'Future': return 'bg-sky-50 text-sky-600';
+                default: return 'bg-slate-50 text-slate-600';
+            }
         }
 
         function startQuiz(id) {
-            currentQuizTense = TENSES_DB.find(t => t.id === id);
-            currentQuestionIdx = 0;
-            quizScore = 0;
-            document.getElementById('active-tense-label').innerText = currentQuizTense.title;
+            curTense = TENSES.find(t => t.id === id);
+            curIdx = 0; score = 0;
+            document.getElementById('quiz-title-display').innerText = curTense.en;
+            document.getElementById('retry-btn').onclick = () => startQuiz(id);
             showTab('quiz-play');
-            renderQuestion();
+            renderQ();
         }
 
-        function renderQuestion() {
-            const q = currentQuizTense.questions[currentQuestionIdx];
-            const container = document.getElementById('quiz-question-container');
-            const total = 30;
-            
-            document.getElementById('quiz-progress').innerText = `${currentQuestionIdx + 1}/${total}`;
-            document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIdx + 1) / total) * 100}%`;
-            
-            container.innerHTML = `
-                <h3 class="text-2xl font-black text-slate-900 mb-10">${q.q}</h3>
-                <div class="grid grid-cols-1 gap-4">
+        function renderQ() {
+            const q = curTense.questions[curIdx];
+            const area = document.getElementById('question-area');
+            const total = curTense.questions.length;
+            document.getElementById('quiz-progress-num').innerText = curIdx + 1;
+            document.getElementById('quiz-progress-bar').style.width = `${((curIdx + 1) / total) * 100}%`;
+
+            area.innerHTML = `
+                <div class="mb-10">
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-slate-800 leading-tight mb-4">
+                        ${q.q.replace('____', '<span class="text-indigo-600 underline decoration-indigo-200 decoration-4 underline-offset-8">_______</span>')}
+                    </h3>
+                    <p class="text-slate-400 text-sm font-medium">Choose the most appropriate word to complete the sentence.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     ${q.a.map((ans, i) => `
-                        <button onclick="handleAnswer(${i})" class="group w-full text-left p-6 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 transition-all flex items-center justify-between">
-                            <span class="font-bold text-slate-700 group-hover:text-blue-700 text-lg">${ans}</span>
-                            <div class="w-6 h-6 rounded-full border-2 border-slate-200 group-hover:border-blue-600"></div>
+                        <button onclick="check(${i})" class="w-full text-left p-5 rounded-[1.5rem] border-2 border-slate-100 hover:border-indigo-600 hover:bg-indigo-50/50 transition-all group flex items-center justify-between">
+                            <span class="font-bold text-slate-600 group-hover:text-indigo-700 text-lg">${ans}</span>
+                            <div class="w-6 h-6 rounded-full border-2 border-slate-200 group-hover:border-indigo-400 flex items-center justify-center">
+                                <div class="w-2 h-2 rounded-full bg-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
                         </button>
                     `).join('')}
                 </div>
             `;
         }
 
-        function handleAnswer(idx) {
-            const q = currentQuizTense.questions[currentQuestionIdx];
-            if (idx === q.c) quizScore++;
+        function check(i) {
+            const q = curTense.questions[curIdx];
+            const ok = i === q.c;
+            if(ok) score++;
             
-            currentQuestionIdx++;
-            if (currentQuestionIdx < 30) {
-                renderQuestion();
+            const fbModal = document.getElementById('feedback-modal');
+            const fbIcon = document.getElementById('fb-icon');
+            const fbText = document.getElementById('fb-text');
+            
+            document.getElementById('fb-correct').innerText = q.a[q.c];
+            document.getElementById('fb-exp').innerText = q.exp;
+            
+            if(ok) {
+                fbIcon.innerHTML = "⭐️"; 
+                fbIcon.className = "w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 bg-emerald-100 text-emerald-600 shadow-lg shadow-emerald-100";
+                fbText.innerText = "អស្ចារ្យណាស់! ត្រឹមត្រូវ"; 
+                fbText.className = "text-2xl font-black text-center mb-8 khmer-font text-emerald-600";
             } else {
-                showResult();
+                fbIcon.innerHTML = "💡"; 
+                fbIcon.className = "w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 bg-orange-100 text-orange-600 shadow-lg shadow-orange-100";
+                fbText.innerText = "ជិតត្រូវហើយ! ព្យាយាមម្ដងទៀត"; 
+                fbText.className = "text-2xl font-black text-center mb-8 khmer-font text-orange-600";
             }
+            
+            document.getElementById('next-btn').onclick = () => {
+                fbModal.classList.add('hidden');
+                curIdx++;
+                if(curIdx < curTense.questions.length) renderQ();
+                else finish();
+            };
+            fbModal.classList.remove('hidden');
         }
 
-        function showResult() {
-            const total = 30;
-            document.getElementById('result-score').innerText = `${quizScore}/${total}`;
+        function finish() {
+            const total = curTense.questions.length;
+            document.getElementById('final-score').innerText = `${score} / ${total}`;
+            const p = (score / total) * 100;
             
-            let comment = "";
-            if (quizScore >= 28) comment = "អស្ចារ្យណាស់! អ្នកគឺជាអ្នកជំនាញកាលពិតប្រាកដ។";
-            else if (quizScore >= 24) comment = "ល្អណាស់! សមត្ថភាពរបស់អ្នកខ្ពស់ខ្លាំង។";
-            else if (quizScore >= 18) comment = "ល្អបង្គួរ! បន្តការអនុវត្តបន្ថែមទៀត។";
-            else comment = "ព្យាយាមរំលឹកមេរៀនបន្ថែមទៀតដើម្បីទទួលបានលទ្ធផលល្អ!";
-            
-            document.getElementById('result-comment').innerText = comment;
+            if(p >= 80) {
+                document.getElementById('result-text').innerText = "អ្នកពិតជាពូកែណាស់! បន្តការខិតខំប្រឹងប្រែងនេះទៀត ដើម្បីក្លាយជាអ្នកជំនាញភាសាអង់គ្លេស។";
+                document.getElementById('result-animation').innerHTML = '<div class="w-24 h-24 rounded-full btn-primary flex items-center justify-center text-white text-4xl shadow-xl animate-bounce">🏆</div>';
+            } else {
+                document.getElementById('result-text').innerText = "កុំបោះបង់! ការអនុវត្តកាន់តែច្រើន នឹងធ្វើឱ្យអ្នកកាន់តែប្រសើរឡើង។ សាកល្បងម្ដងទៀតណា!";
+                document.getElementById('result-animation').innerHTML = '<div class="w-24 h-24 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 text-4xl shadow-xl">🎯</div>';
+            }
             showTab('quiz-result');
         }
 
-        function retryCurrentQuiz() {
-            startQuiz(currentQuizTense.id);
-        }
-
-        window.onload = renderLessons;
+        window.onload = init;
     </script>
 </body>
 </html>
