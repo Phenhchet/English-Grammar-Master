@@ -1,636 +1,457 @@
 <!DOCTYPE html>
-<html lang="km">
+<html lang="km" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TenseMaster | Master English Tenses</title>
+    <title>English Pro Hub - គ្រូបង្រៀន AI ផ្ទាល់ខ្លួន</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #4f46e5; --bg: #f8fafc; }
-        body { 
-            font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', sans-serif; 
-            background-color: var(--bg);
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 30px 30px;
-            color: #1e293b;
-        }
-        .khmer-font { font-family: 'Kantumruy Pro', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap');
         
-        .tense-card {
-            background: white;
-            border-radius: 2rem;
-            padding: 2rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: 1px solid #f1f5f9;
-        }
-        .tense-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.1);
-            border-color: #e2e8f0;
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
         }
 
-        .formula-box {
-            background: #f1f5f9;
-            border-radius: 1.25rem;
-            padding: 1.25rem;
-            border-left: 4px solid var(--primary);
-        }
-
-        .tag {
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .tag-present { background: #dcfce7; color: #16a34a; }
-        .tag-past { background: #ffedd5; color: #ea580c; }
-        .tag-future { background: #fef9c3; color: #ca8a04; }
-
-        .signal-pill {
-            background: #eef2ff;
-            color: #6366f1;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid #e0e7ff;
-        }
-
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-
-        .modal-overlay {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-        }
-
-        .option-btn {
-            transition: all 0.2s ease;
-            border: 2px solid #f1f5f9;
-        }
-        .option-btn:hover {
-            border-color: #6366f1;
+        body {
+            font-family: 'Inter', 'Kantumruy Pro', sans-serif;
             background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
         }
-        .option-btn.correct {
-            border-color: #10b981;
-            background-color: #ecfdf5;
-            color: #065f46;
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        .option-btn.wrong {
-            border-color: #ef4444;
-            background-color: #fef2f2;
-            color: #991b1b;
+
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
         }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .perspective-1000 { perspective: 1000px; }
+        
+        .tab-button.active { color: var(--primary); border-top: 2px solid var(--primary); }
+        .tense-card { border-left: 5px solid var(--primary); }
     </style>
 </head>
-<body class="antialiased min-h-screen">
+<body class="pb-24">
 
-    <nav class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div onclick="window.location.reload()" class="flex items-center gap-3 cursor-pointer group">
-            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 group-active:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
+    <header class="sticky top-0 z-50 glass-effect border-b border-gray-200">
+        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-200">
+                    <i class="fas fa-graduation-cap text-white text-lg"></i>
+                </div>
+                <h1 class="text-xl font-bold text-gray-800 tracking-tight">English<span class="text-blue-600">Pro</span></h1>
             </div>
-            <h1 class="text-xl font-extrabold text-slate-800 tracking-tight group-hover:text-indigo-600 transition-colors">TenseMaster</h1>
+            <div id="xp-display" class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-bold border border-yellow-200">
+                <i class="fas fa-star mr-1"></i> <span id="user-xp">0</span> XP
+            </div>
         </div>
-        <div class="flex bg-slate-200/50 p-1.5 rounded-2xl">
-            <button onclick="showHome()" class="px-6 py-2 rounded-xl text-sm font-bold transition-all bg-white shadow-sm text-indigo-600" id="nav-lessons">Lessons</button>
-            <button onclick="showQuizSelection()" class="px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500" id="nav-practice">Practice (30 Qs)</button>
+    </header>
+
+    <main id="app-container" class="max-w-md mx-auto px-4 pt-6 min-h-screen">
+        <!-- Dashboard Section -->
+        <section id="section-home" class="space-y-6 fade-in">
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-2xl font-bold mb-2">សួស្តី! រីករាយដែលបានជួប 👋</h2>
+                    <p class="opacity-90 font-light text-sm leading-relaxed">តោះ! ចាប់ផ្តើមរៀនវេយ្យករណ៍ និងពាក្យថ្មីៗចំនួន ១០០+ ជាមួយ AI។</p>
+                    <button onclick="switchTab('grammar')" class="mt-4 bg-white text-blue-600 px-6 py-2 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform">
+                        ចាប់ផ្តើមរៀន
+                    </button>
+                </div>
+                <i class="fas fa-rocket absolute -right-4 -bottom-4 text-8xl opacity-10 rotate-12"></i>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div onclick="switchTab('grammar')" class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow flex flex-col items-center text-center cursor-pointer hover:bg-blue-50 transition">
+                    <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-3 text-blue-600">
+                        <i class="fas fa-book-open text-xl"></i>
+                    </div>
+                    <span class="font-bold text-gray-700">វេយ្យករណ៍</span>
+                    <span class="text-[10px] text-gray-400 uppercase tracking-widest">12 Tenses</span>
+                </div>
+                <div onclick="switchTab('vocab')" class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow flex flex-col items-center text-center cursor-pointer hover:bg-green-50 transition">
+                    <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-3 text-green-600">
+                        <i class="fas fa-language text-xl"></i>
+                    </div>
+                    <span class="font-bold text-gray-700">ពាក្យថ្មីៗ</span>
+                    <span class="text-[10px] text-gray-400 uppercase tracking-widest">100+ Words</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grammar Section -->
+        <section id="section-grammar" class="hidden space-y-4 fade-in">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-1 h-8 bg-blue-600 rounded-full"></div>
+                <h3 class="text-xl font-bold text-gray-800">វេយ្យករណ៍ទាំង ១២កាល</h3>
+            </div>
+            <div id="tenses-list" class="space-y-4"></div>
+        </section>
+
+        <!-- Vocabulary Section -->
+        <section id="section-vocab" class="hidden space-y-6 fade-in">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-800">វាក្យសព្ទ (Flashcards)</h3>
+                <button onclick="shuffleVocab(event)" class="text-xs bg-blue-50 text-blue-600 px-4 py-2 rounded-xl border border-blue-100 font-bold active:scale-95 transition">
+                    <i class="fas fa-random mr-2"></i> លាយពាក្យថ្មី
+                </button>
+            </div>
+            
+            <div id="flashcard-container" class="relative w-full perspective-1000">
+                <div onclick="nextVocab()" class="w-full bg-white rounded-[2rem] shadow-xl flex flex-col p-8 border border-blue-50 cursor-pointer transition-all duration-300 relative overflow-hidden">
+                    <div class="text-center mb-6">
+                        <p id="vocab-category" class="text-blue-500 font-bold text-xs mb-2 uppercase tracking-[0.2em]">Daily Vocabulary</p>
+                        <h2 id="vocab-en" class="text-4xl font-black text-gray-800 mb-2 tracking-tight">...</h2>
+                        <div class="h-1 w-12 bg-blue-600 mx-auto rounded-full mb-4"></div>
+                        <p id="vocab-kh" class="text-2xl text-gray-600 font-bold">...</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 relative mb-4 min-h-[100px]">
+                        <span class="absolute -top-3 left-4 bg-white px-3 py-0.5 text-[10px] font-black text-blue-600 border border-blue-100 rounded-full uppercase">Example Usage</span>
+                        <p id="vocab-sentence-en" class="text-gray-700 font-medium italic text-base leading-relaxed mb-2">...</p>
+                        <p id="vocab-sentence-kh" class="text-sm text-blue-600 font-bold">...</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <button onclick="event.stopPropagation(); speakWord()" class="bg-blue-600 text-white w-12 h-12 rounded-2xl shadow-lg flex items-center justify-center active:scale-90 transition">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <div class="text-right">
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Next</p>
+                            <p id="vocab-progress" class="text-xs font-bold text-blue-600">0 / 0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Section -->
+        <section id="section-practice" class="hidden space-y-4 fade-in">
+            <div class="bg-white p-6 rounded-3xl shadow-xl border border-blue-50">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-800">តេស្តសមត្ថភាព</h3>
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Level: Mixed</span>
+                </div>
+                <div id="quiz-box">
+                    <p id="quiz-question" class="font-bold text-gray-700 mb-6 text-lg"></p>
+                    <div id="quiz-options" class="space-y-3"></div>
+                    <div id="quiz-feedback" class="mt-6 hidden p-4 rounded-2xl text-sm font-bold text-center border"></div>
+                    <button id="next-quiz" onclick="generateQuiz()" class="mt-6 w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg hidden">សំណួរផ្ដាប់ទៅទៀត <i class="fas fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 glass-effect border-t border-gray-200 px-4 py-2 z-50">
+        <div class="max-w-md mx-auto flex justify-between items-center">
+            <button onclick="switchTab('home')" id="nav-home" class="tab-button flex flex-col items-center px-4 py-2 text-blue-600 transition">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-[10px] mt-1 font-bold">ផ្ទះ</span>
+            </button>
+            <button onclick="switchTab('grammar')" id="nav-grammar" class="tab-button flex flex-col items-center px-4 py-2 text-gray-400 transition">
+                <i class="fas fa-book text-xl"></i>
+                <span class="text-[10px] mt-1 font-bold">មេរៀន</span>
+            </button>
+            <button onclick="switchTab('vocab')" id="nav-vocab" class="tab-button flex flex-col items-center px-4 py-2 text-gray-400 transition">
+                <i class="fas fa-clone text-xl"></i>
+                <span class="text-[10px] mt-1 font-bold">ពាក្យ</span>
+            </button>
+            <button onclick="switchTab('practice')" id="nav-practice" class="tab-button flex flex-col items-center px-4 py-2 text-gray-400 transition">
+                <i class="fas fa-star text-xl"></i>
+                <span class="text-[10px] mt-1 font-bold">អនុវត្ត</span>
+            </button>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-8">
-        <div id="view-lessons" class="space-y-12">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-6">
-                <div>
-                    <span class="bg-indigo-100 text-indigo-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Comprehensive Guide</span>
-                    <h2 class="text-5xl font-black text-slate-900 mb-2">Master English Tenses</h2>
-                    <p class="khmer-font text-slate-500 text-lg">សិក្សាអំពីកាលទាំង ១២ ក្នុងភាសាអង់គ្លេសជាមួយការបកស្រាយលម្អិត និងឧទាហរណ៍ជាក់ស្ដែង</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center min-w-[100px]">
-                        <div class="text-3xl font-black text-indigo-600">12</div>
-                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tenses</div>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center min-w-[100px]">
-                        <div class="text-3xl font-black text-indigo-600">30</div>
-                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Questions</div>
-                    </div>
-                </div>
-            </div>
-            <div id="tense-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20"></div>
-        </div>
-
-        <div id="view-quiz-setup" class="hidden max-w-4xl mx-auto text-center space-y-12 py-12">
-            <div class="space-y-4">
-                <h2 class="text-4xl font-black text-slate-900">Choose a Tense to Practice</h2>
-                <p class="khmer-font text-slate-500 text-lg">ជ្រើសរើសកាលណាមួយដើម្បីធ្វើលំហាត់អនុវត្តចំនួន ៣០ សំណួរដែលមិនជាន់គ្នា</p>
-            </div>
-            <div id="quiz-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
-        </div>
-
-        <div id="view-quiz-active" class="hidden max-w-3xl mx-auto space-y-8 py-10">
-            <div class="flex justify-between items-center bg-white p-6 rounded-3xl shadow-sm">
-                <div class="flex items-center gap-4">
-                    <button onclick="showQuizSelection()" class="p-2 hover:bg-slate-100 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
-                    <div>
-                        <h4 id="quiz-title" class="font-black text-indigo-600">Present Simple</h4>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question <span id="q-current">1</span>/30</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <span class="text-2xl font-black text-emerald-500" id="score-display">0</span>
-                    <span class="text-xs font-bold text-slate-400 uppercase ml-1">Correct</span>
-                </div>
-            </div>
-            <div class="bg-white rounded-[2.5rem] p-12 shadow-xl border border-slate-100 text-center space-y-10 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-slate-100">
-                    <div id="quiz-progress" class="h-full bg-indigo-500 transition-all duration-300" style="width: 3%"></div>
-                </div>
-                <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-slate-800 leading-tight">...</h2>
-                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                <div id="feedback-text" class="h-6 font-bold text-sm"></div>
-            </div>
-        </div>
-    </main>
-
-    <div id="detail-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
-        <div class="modal-overlay absolute inset-0" onclick="closeModal()"></div>
-        <div class="bg-white w-full max-w-4xl max-h-full rounded-[2.5rem] shadow-2xl relative overflow-hidden flex flex-col z-10">
-            <div class="p-8 md:p-10 border-b border-slate-100 flex justify-between items-start">
-                <div>
-                    <span id="modal-tag" class="tag mb-3 inline-block">PRESENT</span>
-                    <h2 id="modal-title" class="text-4xl font-black text-slate-900 leading-none">Present Simple</h2>
-                    <p id="modal-kh" class="khmer-font text-indigo-600 font-bold text-lg mt-1">បច្ចុប្បន្នកាលធម្មតា</p>
-                </div>
-                <button onclick="closeModal()" class="p-3 bg-slate-100 hover:bg-slate-200 rounded-2xl transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-            </div>
-            <div class="p-8 md:p-10 overflow-y-auto custom-scroll flex-grow space-y-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div class="space-y-6">
-                        <div>
-                            <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Formulas</h5>
-                            <div class="formula-box space-y-3 font-mono text-sm font-bold">
-                                <div class="flex gap-3"><span class="text-emerald-500 font-black">(+)</span> <span id="modal-pos"></span></div>
-                                <div class="flex gap-3"><span class="text-rose-500 font-black">(-)</span> <span id="modal-neg"></span></div>
-                                <div class="flex gap-3"><span class="text-indigo-500 font-black">(?)</span> <span id="modal-que"></span></div>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Meaning & Usage</h5>
-                            <p id="modal-usage" class="khmer-font text-slate-600 leading-relaxed text-base"></p>
-                        </div>
-                        <div>
-                            <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Signal Words</h5>
-                            <div id="modal-signals" class="flex flex-wrap gap-2"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">10 Practical Examples</h5>
-                        <div id="modal-examples" class="space-y-4"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-6 md:px-10 bg-slate-50 border-t border-slate-100 flex flex-col md:flex-row gap-4">
-                <button id="btn-start-quiz" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-8 rounded-2xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    Start Practice Quiz
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        const fullData = [
-            {
-                name: "Present Simple",
-                kh: "បច្ចុប្បន្នកាលធម្មតា",
-                group: "present",
-                pos: "S + V1 (s/es)",
-                neg: "S + do/does + not + V1",
-                que: "Do/Does + S + V1?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលកើតឡើងជាទម្លាប់ ការពិតជាសកល ឬកាលវិភាគដែលបានកំណត់។",
-                signals: ["always", "usually", "often", "every day", "sometimes", "never"],
-                examples: [
-                    {en: "I drink water every morning.", kh: "ខ្ញុំផឹកទឹកជារៀងរាល់ព្រឹក។"},
-                    {en: "The sun rises in the east.", kh: "ព្រះអាទិត្យរះនៅទិសខាងកើត។"},
-                    {en: "She doesn't eat meat.", kh: "នាងមិនញ៉ាំសាច់ទេ។"},
-                    {en: "Do you play football?", kh: "តើអ្នកលេងបាល់ទាត់ទេ?"},
-                    {en: "Cats hate water.", kh: "ឆ្មាស្អប់ទឹក។"},
-                    {en: "He works in an office.", kh: "គាត់ធ្វើការក្នុងកិរិយាល័យ។"},
-                    {en: "Water boils at 100°C.", kh: "ទឹកពុះនៅសីតុណ្ហភាព ១០០ អង្សាសេ។"},
-                    {en: "They speak English well.", kh: "ពួកគេនិយាយភាសាអង់គ្លេសបានល្អ។"},
-                    {en: "The train leaves at 8 PM.", kh: "រថភ្លើងចេញដំណើរនៅម៉ោង ៨ យប់។"},
-                    {en: "I am a teacher.", kh: "ខ្ញុំគឺជាគ្រូបង្រៀនម្នាក់។"}
-                ],
-                verbs: ["eat", "work", "play", "study", "speak", "watch", "go", "read", "drink", "walk"]
-            },
-            {
-                name: "Present Continuous",
-                kh: "បច្ចុប្បន្នកាលកំពុងបន្ត",
-                group: "present",
-                pos: "S + am/is/are + V-ing",
-                neg: "S + am/is/are + not + V-ing",
-                que: "Am/Is/Are + S + V-ing?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលកំពុងកើតឡើងនៅពេលនិយាយ ឬគម្រោងនាពេលអនាគតដ៏ខ្លី។",
-                signals: ["now", "at the moment", "Look!", "Listen!", "currently"],
-                examples: [
-                    {en: "I am studying English now.", kh: "ខ្ញុំកំពុងរៀនភាសាអង់គ្លេសឥឡូវនេះ។"},
-                    {en: "Look! It is raining.", kh: "មើលចុះ! វាកំពុងភ្លៀង។"},
-                    {en: "They are playing football.", kh: "ពួកគេកំពុងលេងបាល់ទាត់។"},
-                    {en: "She is cooking dinner.", kh: "នាងកំពុងស្លរអាហារពេលល្ងាច។"},
-                    {en: "Listen! Someone is singing.", kh: "ស្ដាប់ចុះ! មាននរណាម្នាក់កំពុងច្រៀង។"}
-                ],
-                verbs: ["running", "cooking", "writing", "sleeping", "listening", "waiting", "dancing"]
-            },
-            {
-                name: "Present Perfect",
-                kh: "បច្ចុប្បន្នកាលបរិបូរណ៍",
-                group: "present",
-                pos: "S + have/has + V3",
-                neg: "S + have/has + not + V3",
-                que: "Have/Has + S + V3?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលបានកើតឡើងក្នុងអតីតកាល និងមានឥទ្ធិពលមកដល់បច្ចុប្បន្ន ឬបទពិសោធន៍។",
-                signals: ["already", "yet", "ever", "never", "since", "for"],
-                examples: [
-                    {en: "I have finished my homework.", kh: "ខ្ញុំបានធ្វើកិច្ចការផ្ទះរួចរាល់ហើយ។"},
-                    {en: "She has been to Japan twice.", kh: "នាងធ្លាប់ទៅប្រទេសជប៉ុនពីរដងហើយ។"}
-                ],
-                verbs: ["seen", "done", "gone", "eaten", "broken", "taken", "bought", "flown"]
-            },
-            {
-                name: "Present Perfect Continuous",
-                kh: "បច្ចុប្បន្នកាលបរិបូរណ៍កំពុងបន្ត",
-                group: "present",
-                pos: "S + have/has + been + V-ing",
-                neg: "S + have/has + not + been + V-ing",
-                que: "Have/Has + S + been + V-ing?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលចាប់ផ្តើមតាំងពីអតីតកាល ហើយបន្តមកដល់បច្ចុប្បន្ន (សង្កត់លើរយៈពេល)។",
-                signals: ["for", "since", "all day", "how long", "lately"],
-                examples: [
-                    {en: "I have been waiting for two hours.", kh: "ខ្ញុំបានកំពុងរង់ចាំអស់រយៈពេល ២ ម៉ោងហើយ។"}
-                ],
-                verbs: ["living", "studying", "working", "raining", "trying", "playing"]
-            },
-            {
-                name: "Past Simple",
-                kh: "អតីតកាលធម្មតា",
-                group: "past",
-                pos: "S + V2 (ed / irregular)",
-                neg: "S + did + not + V1",
-                que: "Did + S + V1?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលបានកើតឡើង និងបញ្ចប់សព្វគ្រប់ក្នុងអតីតកាល។",
-                signals: ["yesterday", "last week", "ago", "in 1990", "when"],
-                examples: [
-                    {en: "I went to school yesterday.", kh: "ខ្ញុំបានទៅសាលាកាលពីម្សិលមិញ។"}
-                ],
-                verbs: ["went", "called", "visited", "saw", "bought", "sold", "lost", "met"]
-            },
-            {
-                name: "Past Continuous",
-                kh: "អតីតកាលកំពុងបន្ត",
-                group: "past",
-                pos: "S + was/were + V-ing",
-                neg: "S + was/were + not + V-ing",
-                que: "Was/Were + S + V-ing?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលកំពុងកើតឡើងនៅពេលណាមួយក្នុងអតីតកាល។",
-                signals: ["at that time", "while", "when", "all evening"],
-                examples: [
-                    {en: "I was sleeping at 10 PM.", kh: "ខ្ញុំកំពុងដេកនៅម៉ោង ១០ យប់។"}
-                ],
-                verbs: ["sleeping", "eating", "talking", "driving", "cleaning", "watching"]
-            },
-            {
-                name: "Past Perfect",
-                kh: "អតីតកាលបរិបូរណ៍",
-                group: "past",
-                pos: "S + had + V3",
-                neg: "S + had + not + V3",
-                que: "Had + S + V3?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលបានបញ្ចប់មុនសកម្មភាពមួយទៀតក្នុងអតីតកាល។",
-                signals: ["before", "after", "by the time", "as soon as"],
-                examples: [
-                    {en: "I had eaten before I went out.", kh: "ខ្ញុំបានញ៉ាំបាយរួចហើយ មុនពេលខ្ញុំចេញទៅក្រៅ។"}
-                ],
-                verbs: ["finished", "left", "started", "seen", "known", "had"]
-            },
-            {
-                name: "Past Perfect Continuous",
-                kh: "អតីតកាលបរិបូរណ៍កំពុងបន្ត",
-                group: "past",
-                pos: "S + had + been + V-ing",
-                neg: "S + had + not + been + V-ing",
-                que: "Had + S + been + V-ing?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលបានកើតឡើងបន្តបន្ទាប់រហូតដល់ចំណុចណាមួយក្នុងអតីតកាល។",
-                signals: ["for", "since", "before", "all morning"],
-                examples: [
-                    {en: "I had been working for 8 hours before I slept.", kh: "ខ្ញុំបានកំពុងធ្វើការអស់រយៈពេល ៨ ម៉ោង មុនពេលខ្ញុំចូលគេង។"}
-                ],
-                verbs: ["crying", "waiting", "traveling", "playing", "reading"]
-            },
-            {
-                name: "Future Simple",
-                kh: "អនាគតកាលធម្មតា",
-                group: "future",
-                pos: "S + will + V1",
-                neg: "S + will + not + V1",
-                que: "Will + S + V1?",
-                usage: "ប្រើសម្រាប់សេចក្តីសម្រេចចិត្តភ្លាមៗ ការសន្យា ឬការទស្សន៍ទាយនាពេលអនាគត។",
-                signals: ["tomorrow", "next week", "soon", "later", "maybe"],
-                examples: [
-                    {en: "I will help you.", kh: "ខ្ញុំនឹងជួយអ្នក។"}
-                ],
-                verbs: ["help", "call", "go", "buy", "be", "make", "find"]
-            },
-            {
-                name: "Future Continuous",
-                kh: "អនាគតកាលកំពុងបន្ត",
-                group: "future",
-                pos: "S + will + be + V-ing",
-                neg: "S + will + not + be + V-ing",
-                que: "Will + S + be + V-ing?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលនឹងកំពុងកើតឡើងនៅពេលណាមួយនាពេលអនាគត។",
-                signals: ["at this time tomorrow", "next year", "all day tomorrow"],
-                examples: [
-                    {en: "I will be flying to Paris tomorrow.", kh: "ខ្ញុំនឹងកំពុងហោះហើរទៅប៉ារីសនៅថ្ងៃស្អែក។"}
-                ],
-                verbs: ["flying", "staying", "studying", "working", "having"]
-            },
-            {
-                name: "Future Perfect",
-                kh: "អនាគតកាលបរិបូរណ៍",
-                group: "future",
-                pos: "S + will + have + V3",
-                neg: "S + will + not + have + V3",
-                que: "Will + S + have + V3?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលនឹងបញ្ចប់មុនចំណុចណាមួយនាពេលអនាគត។",
-                signals: ["by", "by then", "by next year", "by the time"],
-                examples: [
-                    {en: "I will have finished my project by Monday.", kh: "ខ្ញុំនឹងបានបញ្ចប់គម្រោងរបស់ខ្ញុំត្រឹមថ្ងៃច័ន្ទ។"}
-                ],
-                verbs: ["graduated", "retired", "arrived", "closed", "lived"]
-            },
-            {
-                name: "Future Perfect Continuous",
-                kh: "អនាគតកាលបរិបូរណ៍កំពុងបន្ត",
-                group: "future",
-                pos: "S + will + have + been + V-ing",
-                neg: "S + will + not + have + been + V-ing",
-                que: "Will + S + have + been + V-ing?",
-                usage: "ប្រើសម្រាប់សកម្មភាពដែលនឹងបន្តរហូតដល់ចំណុចណាមួយនាពេលអនាគត (សង្កត់លើរយៈពេល)។",
-                signals: ["for", "by the time", "by tomorrow"],
-                examples: [
-                    {en: "By next month, I will have been living here for 1 year.", kh: "ត្រឹមខែក្រោយ ខ្ញុំនឹងបានកំពុងរស់នៅទីនេះអស់រយៈពេល ១ ឆ្នាំហើយ។"}
-                ],
-                verbs: ["teaching", "practicing", "learning", "running"]
-            }
+        const tenses = [
+            { name: "Present Simple", kh: "បច្ចុប្បន្នកាលធម្មតា", formula: "S + V1 (s/es)", def: "ប្រើសម្រាប់សកម្មភាពជាទម្លាប់ ឬការពិតទូទៅ។", usage: "Habits and general truths.", keywords: "always, usually, every day", examples: ["I study English every day.", "She drinks coffee.", "The sun rises in the east."] },
+            { name: "Present Continuous", kh: "បច្ចុប្បន្នកាលកំពុងបន្ត", formula: "S + am/is/are + V-ing", def: "ប្រើសម្រាប់សកម្មភាពដែលកំពុងកើតឡើងនៅពេលនិយាយ។", usage: "Action in progress now.", keywords: "now, at the moment", examples: ["I am learning now.", "They are playing.", "She is reading."] },
+            { name: "Present Perfect", kh: "បច្ចុប្បន្នកាលបរិបូរណ៍", formula: "S + have/has + V3", def: "ប្រើសម្រាប់សកម្មភាពដែលបានបញ្ចប់ថ្មីៗ ឬមានលទ្ធផលដល់បច្ចុប្បន្ន។", usage: "Action completed recently with impact.", keywords: "just, yet, ever, never", examples: ["I have finished my work.", "She has visited Paris.", "They have eaten dinner."] },
+            { name: "Present Perfect Continuous", kh: "បច្ចុប្បន្នកាលបរិបូរណ៍កំពុងបន្ត", formula: "S + have/has + been + V-ing", def: "បង្ហាញពីសកម្មភាពដែលបន្តពីអតីតកាលរហូតដល់បច្ចុប្បន្ន។", usage: "Duration of action up to now.", keywords: "for, since", examples: ["I have been waiting for hours.", "It has been raining.", "They have been working."] },
+            { name: "Past Simple", kh: "អតីតកាលធម្មតា", formula: "S + V2", def: "ប្រើសម្រាប់សកម្មភាពដែលបានបញ្ចប់ក្នុងអតីតកាល។", usage: "Completed past actions.", keywords: "yesterday, ago, last week", examples: ["I watched a movie yesterday.", "She went to school.", "They arrived late."] },
+            { name: "Past Continuous", kh: "អតីតកាលកំពុងបន្ត", formula: "S + was/were + V-ing", def: "ប្រើសម្រាប់សកម្មភាពដែលកំពុងកើតឡើងក្នុងពេលណាមួយក្នុងអតីតកាល។", usage: "Action in progress in the past.", keywords: "while, when", examples: ["I was sleeping when you called.", "They were dancing.", "It was raining."] },
+            { name: "Past Perfect", kh: "អតីតកាលបរិបូរណ៍", formula: "S + had + V3", def: "ប្រើសម្រាប់សកម្មភាពដែលបានកើតឡើងមុនសកម្មភាពអតីតកាលមួយទៀត។", usage: "Past before past.", keywords: "after, before", examples: ["I had finished dinner before she arrived.", "The train had left.", "She had lived there."] },
+            { name: "Past Perfect Continuous", kh: "អតីតកាលបរិបូរណ៍កំពុងបន្ត", formula: "S + had + been + V-ing", def: "បង្ហាញពីរយៈពេលនៃសកម្មភាពមុនពេលអតីតកាលមួយទៀត។", usage: "Past duration before another past event.", keywords: "for, since", examples: ["I had been working for 5 hours.", "She had been studying.", "They had been living here."] },
+            { name: "Future Simple", kh: "អនាគតកាលធម្មតា", formula: "S + will + V1", def: "ប្រើសម្រាប់បង្ហាញសកម្មភាពដែលនឹងកើតឡើងក្នុងអនាគត។", usage: "Predictions, promises, spontaneous decisions.", keywords: "tomorrow, soon, next year", examples: ["I will travel to Japan next year.", "She will help you.", "It will rain."] },
+            { name: "Future Continuous", kh: "អនាគតកាលកំពុងបន្ត", formula: "S + will be + V-ing", def: "ប្រើសម្រាប់សកម្មភាពដែលនឹងកំពុងកើតឡើងក្នុងអនាគត។", usage: "Action in progress in the future.", keywords: "at this time tomorrow", examples: ["I will be flying at 10 AM tomorrow.", "They will be eating.", "She will be sleeping."] },
+            { name: "Future Perfect", kh: "អនាគតកាលបរិបូរណ៍", formula: "S + will have + V3", def: "ប្រើសម្រាប់សកម្មភាពដែលនឹងត្រូវបញ្ចប់នៅចំណុចណាមួយនាពេលអនាគត។", usage: "Completion in the future.", keywords: "by next year, by then", examples: ["I will have graduated by next year.", "They will have finished.", "She will have gone."] },
+            { name: "Future Perfect Continuous", kh: "អនាគតកាលបរិបូរណ៍កំពុងបន្ត", formula: "S + will have been + V-ing", def: "បង្ហាញពីរយៈពេលនៃសកម្មភាពរហូតដល់ចំណុចណាមួយក្នុងអនាគត។", usage: "Duration leading up to a point in the future.", keywords: "for, since", examples: ["I will have been working here for 10 years.", "They will have been traveling.", "She will have been sleeping."] }
         ];
 
-        const subjects = ["I", "You", "He", "She", "It", "We", "They", "The student", "My friends", "John"];
-        const objects = ["English", "dinner", "football", "a movie", "a book", "to school", "at home", "hard", "well"];
+        // Advanced Word Pool - Expanded to 100 Unique Practical Words
+        const wordPool = [
+            { en: "Abandon", kh: "បោះបង់ចោល", s: "Don't abandon your dreams.", ks: "កុំបោះបង់ចោលក្តីសុបិនរបស់អ្នក។" },
+            { en: "Abundant", kh: "សំបូរបែប", s: "The country has abundant natural resources.", ks: "ប្រទេសនេះមានធនធានធម្មជាតិសំបូរបែប។" },
+            { en: "Achieve", kh: "សម្រេចបាន", s: "You can achieve anything with hard work.", ks: "អ្នកអាចសម្រេចបាននូវអ្វីៗគ្រប់យ៉ាងតាមរយៈការខិតខំប្រឹងប្រែង។" },
+            { en: "Acquire", kh: "ទទួលបាន/ទិញបាន", s: "She acquired a new skill.", ks: "នាងទទួលបានជំនាញថ្មីមួយ។" },
+            { en: "Adapt", kh: "បន្សំខ្លួន/សម្របខ្លួន", s: "Animals must adapt to their environment.", ks: "សត្វត្រូវតែសម្របខ្លួនទៅនឹងមជ្ឈដ្ឋានរបស់ពួកវា។" },
+            { en: "Advocate", kh: "គាំទ្រ/តស៊ូមតិ", s: "He is a strong advocate for human rights.", ks: "គាត់គឺជាអ្នកគាំទ្រយ៉ាងខ្លាំងដល់សិទ្ធិមនុស្ស។" },
+            { en: "Ambition", kh: "មហិច្ឆតា", s: "His ambition is to be a doctor.", ks: "មហិច្ឆតារបស់គាត់គឺចង់ក្លាយជាគ្រូពេទ្យ។" },
+            { en: "Analyze", kh: "វិភាគ", s: "We need to analyze the data.", ks: "យើងត្រូវការវិភាគទិន្នន័យ។" },
+            { en: "Appreciate", kh: "ដឹងគុណ/ឲ្យតម្លៃ", s: "I appreciate your help.", ks: "ខ្ញុំដឹងគុណចំពោះការជួយរបស់អ្នក។" },
+            { en: "Assistance", kh: "ជំនួយ", s: "Do you need any assistance?", ks: "តើអ្នកត្រូវការជំនួយអ្វីទេ?" },
+            { en: "Barrier", kh: "របាំង/ឧបសគ្គ", s: "Language is often a barrier.", ks: "ភាសាជារឿយៗគឺជាឧបសគ្គ។" },
+            { en: "Benefit", kh: "អត្ថប្រយោជន៍", s: "Walking is a benefit to health.", ks: "ការដើរគឺជាអត្ថប្រយោជន៍ដល់សុខភាព។" },
+            { en: "Benevolent", kh: "ចិត្តបុណ្យ", s: "A benevolent person helps others.", ks: "មនុស្សចិត្តបុណ្យតែងតែជួយអ្នកដទៃ។" },
+            { en: "Brief", kh: "សង្ខេប", s: "Give me a brief report.", ks: "ផ្ដល់របាយការណ៍សង្ខេបមកខ្ញុំ។" },
+            { en: "Capable", kh: "មានសមត្ថភាព", s: "She is capable of solving problems.", ks: "នាងមានសមត្ថភាពដោះស្រាយបញ្ហា។" },
+            { en: "Capacity", kh: "សមត្ថភាពផ្ទុក", s: "The hall has a large capacity.", ks: "សាលនេះមានសមត្ថភាពផ្ទុកមនុស្សបានច្រើន។" },
+            { en: "Category", kh: "ប្រភេទ", s: "Books are divided into categories.", ks: "សៀវភៅត្រូវបានបែងចែកជាប្រភេទផ្សេងៗ។" },
+            { en: "Challenge", kh: "ការប្រឈម/បញ្ហា", s: "Every challenge is an opportunity.", ks: "រាល់ការប្រឈមគឺជាឱកាស។" },
+            { en: "Clarify", kh: "ធ្វើឱ្យច្បាស់", s: "Can you clarify your question?", ks: "តើអ្នកអាចធ្វើឱ្យសំណួររបស់អ្នកច្បាស់ជាងនេះបានទេ?" },
+            { en: "Collaborate", kh: "សហការ", s: "We should collaborate on this project.", ks: "យើងគួរតែសហការគ្នាលើគម្រោងនេះ។" },
+            { en: "Comfort", kh: "ផាសុកភាព", s: "I like the comfort of my bed.", ks: "ខ្ញុំចូលចិត្តផាសុកភាពនៃគ្រែរបស់ខ្ញុំ។" },
+            { en: "Commitment", kh: "ការប្តេជ្ញាចិត្ត", s: "Success requires commitment.", ks: "ភាពជោគជ័យទាមទារនូវការប្តេជ្ញាចិត្ត។" },
+            { en: "Common", kh: "ធម្មតា/រួមគ្នា", s: "They share a common interest.", ks: "ពួកគេមានចំណាប់អារម្មណ៍រួមគ្នា។" },
+            { en: "Communication", kh: "ការប្រាស្រ័យទាក់ទង", s: "Good communication is key.", ks: "ការប្រាស្រ័យទាក់ទងល្អគឺជាគន្លឹះ។" },
+            { en: "Community", kh: "សហគមន៍", s: "We live in a safe community.", ks: "យើងរស់នៅក្នុងសហគមន៍ដែលមានសុវត្ថិភាព។" },
+            { en: "Compare", kh: "ប្រៀបធៀប", s: "Don't compare yourself to others.", ks: "កុំប្រៀបធៀបខ្លួនឯងទៅនឹងអ្នកដទៃ។" },
+            { en: "Compete", kh: "ប្រកួតប្រជែង", s: "They compete in sports.", ks: "ពួកគេប្រកួតប្រជែងក្នុងកីឡា។" },
+            { en: "Conclusion", kh: "សេចក្តីសន្និដ្ឋាន", s: "What is your conclusion?", ks: "តើសេចក្តីសន្និដ្ឋានរបស់អ្នកគឺជាអ្វី?" },
+            { en: "Confidence", kh: "ទំនុកចិត្ត", s: "He has confidence in his team.", ks: "គាត់មានទំនុកចិត្តលើក្រុមរបស់គាត់។" },
+            { en: "Connect", kh: "ភ្ជាប់", s: "The internet connects people.", ks: "អ៊ីនធឺណិតភ្ជាប់មនុស្សចូលគ្នា។" },
+            { en: "Consistent", kh: "ជាប់លាប់", s: "Be consistent in your practice.", ks: "ត្រូវមានភាពជាប់លាប់ក្នុងការអនុវត្តរបស់អ្នក។" },
+            { en: "Construction", kh: "ការសាងសង់", s: "The building is under construction.", ks: "អាគារនេះកំពុងស្ថិតក្រោមការសាងសង់។" },
+            { en: "Consume", kh: "ប្រើប្រាស់/បរិភោគ", s: "Cars consume a lot of fuel.", ks: "ឡានប្រើប្រាស់ប្រេងច្រើន។" },
+            { en: "Contribution", kh: "ការចូលរួមចំណែក", s: "Thank you for your contribution.", ks: "អរគុណសម្រាប់ការចូលរួមចំណែករបស់អ្នក។" },
+            { en: "Create", kh: "បង្កើត", s: "She likes to create art.", ks: "នាងចូលចិត្តបង្កើតសិល្បៈ។" },
+            { en: "Creative", kh: "ដែលមានគំនិតច្នៃប្រឌិត", s: "He is a creative designer.", ks: "គាត់គឺជាអ្នករចនាដែលមានគំនិតច្នៃប្រឌិត។" },
+            { en: "Crucial", kh: "សំខាន់បំផុត", s: "Water is crucial for life.", ks: "ទឹកគឺសំខាន់បំផុតសម្រាប់ជីវិត។" },
+            { en: "Customer", kh: "អតិថិជន", s: "The customer is always right.", ks: "អតិថិជនតែងតែត្រូវជានិច្ច។" },
+            { en: "Decision", kh: "ការសម្រេចចិត្ត", s: "Make a wise decision.", ks: "ធ្វើការសម្រេចចិត្តឲ្យបានឆ្លាតវៃ។" },
+            { en: "Definition", kh: "និយមន័យ", s: "What is the definition of success?", ks: "តើអ្វីទៅជានិយមន័យនៃភាពជោគជ័យ?" },
+            { en: "Degree", kh: "កម្រិត/សញ្ញាបត្រ", s: "He has a university degree.", ks: "គាត់មានសញ្ញាបត្រសាកលវិទ្យាល័យ។" },
+            { en: "Delivery", kh: "ការដឹកជញ្ជូន", s: "Pizza delivery is fast.", ks: "ការដឹកជញ្ជូនភីហ្សាគឺលឿន។" },
+            { en: "Demand", kh: "តម្រូវការ", s: "There is a high demand for energy.", ks: "មានតម្រូវការថាមពលខ្ពស់។" },
+            { en: "Description", kh: "ការពិពណ៌នា", s: "Write a brief description.", ks: "សរសេរការពិពណ៌នាសង្ខេបមួយ។" },
+            { en: "Design", kh: "រចនា", s: "I like the design of this app.", ks: "ខ្ញុំចូលចិត្តការរចនានៃកម្មវិធីនេះ។" },
+            { en: "Develop", kh: "អភិវឌ្ឍ", s: "We need to develop new ideas.", ks: "យើងត្រូវការអភិវឌ្ឍគំនិតថ្មីៗ។" },
+            { en: "Difference", kh: "ភាពខុសគ្នា", s: "Can you see the difference?", ks: "តើអ្នកអាចឃើញភាពខុសគ្នាទេ?" },
+            { en: "Difficulty", kh: "ការលំបាក", s: "He finished it despite difficulty.", ks: "គាត់បានបញ្ចប់វា បើទោះបីជាមានការលំបាកក៏ដោយ។" },
+            { en: "Digital", kh: "ឌីជីថល", s: "We live in a digital age.", ks: "យើងរស់នៅក្នុងសម័យឌីជីថល។" },
+            { en: "Diligence", kh: "ភាពឧស្សាហ៍", s: "Diligence leads to success.", ks: "ភាពឧស្សាហ៍នាំទៅរកភាពជោគជ័យ។" },
+            { en: "Direction", kh: "ទិសដៅ", s: "Which direction are we going?", ks: "តើយើងកំពុងទៅទិសដៅណា?" },
+            { en: "Discovery", kh: "ការរកឃើញ", s: "It was a great discovery.", ks: "វាគឺជាការរកឃើញដ៏អស្ចារ្យមួយ។" },
+            { en: "Discussion", kh: "ការពិភាក្សា", s: "We had a long discussion.", ks: "យើងបានមានការពិភាក្សាដ៏វែងឆ្ងាយមួយ។" },
+            { en: "Display", kh: "បង្ហាញ", s: "The phone has a clear display.", ks: "ទូរស័ព្ទមានអេក្រង់បង្ហាញច្បាស់ល្អ។" },
+            { en: "Distance", kh: "ចម្ងាយ", s: "The distance is too long.", ks: "ចម្ងាយគឺវែងពេក។" },
+            { en: "Diversity", kh: "ភាពចម្រុះ", s: "I love the diversity of nature.", ks: "ខ្ញុំស្រលាញ់ភាពចម្រុះនៃធម្មជាតិ។" },
+            { en: "Document", kh: "ឯកសារ", s: "Please sign the document.", ks: "សូមចុះហត្ថលេខាលើឯកសារ។" },
+            { en: "Economic", kh: "សេដ្ឋកិច្ច", s: "Tourism helps the economic growth.", ks: "ទេសចរណ៍ជួយដល់ការរីកចម្រើនសេដ្ឋកិច្ច។" },
+            { en: "Education", kh: "ការអប់រំ", s: "Education is powerful.", ks: "ការអប់រំគឺមានអំណាច។" },
+            { en: "Efficient", kh: "មានប្រសិទ្ធភាព", s: "This process is efficient.", ks: "ដំណើរការនេះមានប្រសិទ្ធភាព។" },
+            { en: "Effort", kh: "ការខិតខំ", s: "Success takes a lot of effort.", ks: "ភាពជោគជ័យត្រូវការការខិតខំច្រើន។" },
+            { en: "Elements", kh: "ធាតុបង្ក", s: "What are the key elements?", ks: "តើអ្វីទៅជាធាតុបង្កសំខាន់ៗ?" },
+            { en: "Emotion", kh: "អារម្មណ៍", s: "Love is a strong emotion.", ks: "ក្ដីស្រលាញ់គឺជាអារម្មណ៍ដ៏ខ្លាំងក្លាមួយ។" },
+            { en: "Emphasis", kh: "ការសង្កត់ធ្ងន់", s: "The teacher put emphasis on grammar.", ks: "គ្រូបង្រៀនបានសង្កត់ធ្ងន់លើវេយ្យករណ៍។" },
+            { en: "Encourage", kh: "លើកទឹកចិត្ត", s: "We must encourage each other.", ks: "យើងត្រូវតែលើកទឹកចិត្តគ្នាទៅវិញទៅមក។" },
+            { en: "Energy", kh: "ថាមពល", s: "I have no energy today.", ks: "ខ្ញុំគ្មានថាមពលទេថ្ងៃនេះ។" },
+            { en: "Environment", kh: "បរិស្ថាន", s: "Protect our environment.", ks: "ការពារបរិស្ថានរបស់យើង។" },
+            { en: "Essential", kh: "ចាំបាច់", s: "Sleep is essential for health.", ks: "ការគេងគឺចាំបាច់សម្រាប់សុខភាព។" },
+            { en: "Evidence", kh: "ភស្តុតាង", s: "Is there any evidence?", ks: "តើមានភស្តុតាងអ្វីទេ?" },
+            { en: "Experience", kh: "បទពិសោធន៍", s: "Experience is the best teacher.", ks: "បទពិសោធន៍គឺជាគ្រូបង្រៀនដ៏ល្អបំផុត។" },
+            { en: "Experiment", kh: "ការពិសោធន៍", s: "They are doing a science experiment.", ks: "ពួកគេកំពុងធ្វើការពិសោធន៍វិទ្យាសាស្ត្រ។" },
+            { en: "Explanation", kh: "ការពន្យល់", s: "He gave a clear explanation.", ks: "គាត់បានផ្ដល់ការពន្យល់យ៉ាងច្បាស់។" },
+            { en: "Exploration", kh: "ការរុករក", s: "Space exploration is exciting.", ks: "ការរុករកលំហអាកាសគឺគួរឱ្យរំភើប។" },
+            { en: "Expression", kh: "កន្សោម/ការបញ្ចេញមតិ", s: "Face expression tells a lot.", ks: "ការបញ្ចេញទឹកមុខប្រាប់អ្វីៗបានច្រើន។" },
+            { en: "Factor", kh: "កត្តា", s: "Price is a main factor.", ks: "តម្លៃគឺជាកត្តាចម្បង។" },
+            { en: "Failure", kh: "បរាជ័យ", s: "Don't be afraid of failure.", ks: "កុំខ្លាចការបរាជ័យ។" },
+            { en: "Flexible", kh: "បត់បែន", s: "I need a flexible job.", ks: "ខ្ញុំត្រូវការការងារដែលបត់បែន។" },
+            { en: "Focus", kh: "ផ្ដោតអារម្មណ៍", s: "Focus on your goals.", ks: "ផ្ដោតអារម្មណ៍លើគោលដៅរបស់អ្នក។" },
+            { en: "Function", kh: "មុខងារ", s: "What is the function of this button?", ks: "តើប៊ូតុងនេះមានមុខងារអ្វី?" },
+            { en: "Future", kh: "អនាគត", s: "Think about your future.", ks: "គិតអំពីអនាគតរបស់អ្នក។" },
+            { en: "General", kh: "ទូទៅ", s: "This is a general rule.", ks: "នេះគឺជាច្បាប់ទូទៅ។" },
+            { en: "Generation", kh: "ជំនាន់", s: "The young generation is smart.", ks: "យុវជនជំនាន់ក្រោយគឺឆ្លាត។" },
+            { en: "Goal", kh: "គោលដៅ", s: "Set your goals high.", ks: "កំណត់គោលដៅរបស់អ្នកឱ្យខ្ពស់។" },
+            { en: "Growth", kh: "ការរីកចម្រើន", s: "We need growth in our business.", ks: "យើងត្រូវការការរីកចម្រើនក្នុងអាជីវកម្មរបស់យើង។" },
+            { en: "Habit", kh: "ទម្លាប់", s: "Smoking is a bad habit.", ks: "ការជក់បារីគឺជាទម្លាប់អាក្រក់។" },
+            { en: "Harmony", kh: "សុខដុមរមនា", s: "Live in harmony with others.", ks: "រស់នៅក្នុងសុខដុមរមនាជាមួយអ្នកដទៃ។" },
+            { en: "Health", kh: "សុខភាព", s: "Health is wealth.", ks: "សុខភាពគឺជាទ្រព្យសម្បត្តិ។" },
+            { en: "History", kh: "ប្រវត្តិសាស្ត្រ", s: "Learn from history.", ks: "រៀនពីប្រវត្តិសាស្ត្រ។" },
+            { en: "Honor", kh: "កិត្តិយស", s: "It is an honor to meet you.", ks: "វាគឺជាកិត្តិយសណាស់ដែលបានជួបអ្នក។" },
+            { en: "Humanity", kh: "មនុស្សជាតិ", s: "Help humanity.", ks: "ជួយដល់មនុស្សជាតិ។" },
+            { en: "Identity", kh: "អត្តសញ្ញាណ", s: "Keep your identity safe.", ks: "រក្សាអត្តសញ្ញាណរបស់អ្នកឱ្យមានសុវត្ថិភាព។" },
+            { en: "Illuminate", kh: "បំភ្លឺ", s: "The sun illuminates the earth.", ks: "ព្រះអាទិត្យបំភ្លឺផែនដី។" },
+            { en: "Importance", kh: "សារៈសំខាន់", s: "Understand the importance of time.", ks: "យល់ពីសារៈសំខាន់នៃពេលវេលា។" },
+            { en: "Improvement", kh: "ការកែលម្អ", s: "Continuous improvement is necessary.", ks: "ការកែលម្អជាបន្តបន្ទាប់គឺចាំបាច់។" },
+            { en: "Individual", kh: "បុគ្គល", s: "Every individual is unique.", ks: "បុគ្គលម្នាក់ៗគឺប្លែកៗគ្នា។" },
+            { en: "Influence", kh: "ឥទ្ធិពល", s: "Social media has a big influence.", ks: "បណ្ដាញសង្គមមានឥទ្ធិពលធំធេងណាស់។" },
+            { en: "Information", kh: "ព័ត៌មាន", s: "Thanks for the information.", ks: "អរគុណសម្រាប់ព័ត៌មាន។" },
+            { en: "Innovation", kh: "នវានុវត្តន៍/ការបង្កើតថ្មី", s: "Innovation drives progress.", ks: "ការបង្កើតថ្មីជម្រុញឱ្យមានការរីកចម្រើន។" },
+            { en: "Integrity", kh: "សុចរិតភាព", s: "Integrity is doing the right thing.", ks: "សុចរិតភាពគឺការធ្វើអ្វីដែលត្រឹមត្រូវ។" },
+            { en: "Intelligent", kh: "ឆ្លាតវៃ", s: "She is an intelligent student.", ks: "នាងគឺជាសិស្សដែលឆ្លាតវៃម្នាក់។" }
+        ];
 
-        let currentTenseIndex = 0;
-        let score = 0;
-        let qCount = 0;
-        let currentCorrectAnswer = "";
+        let currentXp = 0;
+        let vocabIndex = 0;
+        let vocabWords = [...wordPool];
+        let currentQuizIndex = 0;
 
-        function renderLessons() {
-            const grid = document.getElementById('tense-grid');
-            grid.innerHTML = fullData.map((t, i) => `
-                <div class="tense-card" onclick="openModal(${i})">
+        const quizzes = [
+            { q: "I _______ (study) English every day.", options: ["study", "studies", "studying", "studied"], ans: "study" },
+            { q: "She _______ (not / like) apples.", options: ["don't like", "doesn't like", "not like", "no like"], ans: "doesn't like" },
+            { q: "They _______ (play) football now.", options: ["play", "plays", "are playing", "is playing"], ans: "are playing" },
+            { q: "Have you _______ your homework?", options: ["finish", "finishes", "finished", "finishing"], ans: "finished" },
+            { q: "He was _______ when I called.", options: ["sleep", "sleeps", "sleeping", "slept"], ans: "sleeping" }
+        ];
+
+        function switchTab(tabId) {
+            document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('section-' + tabId).classList.remove('hidden');
+            
+            document.querySelectorAll('.tab-button').forEach(b => {
+                b.classList.remove('text-blue-600');
+                b.classList.add('text-gray-400');
+            });
+            const activeNav = document.getElementById('nav-' + tabId);
+            if (activeNav) {
+                activeNav.classList.add('text-blue-600');
+                activeNav.classList.remove('text-gray-400');
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function renderTenses() {
+            const list = document.getElementById('tenses-list');
+            if(!list) return;
+            list.innerHTML = tenses.map((t, index) => `
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow tense-card transition hover:scale-[1.02] duration-300">
                     <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-2xl font-black text-slate-800 leading-tight">${t.name}</h3>
-                        <span class="tag tag-${t.group}">${t.group}</span>
+                        <h4 class="font-bold text-blue-600 text-lg">${t.name}</h4>
+                        <span class="text-[10px] bg-blue-50 text-blue-500 px-2 py-1 rounded-full font-bold uppercase">Lesson ${index+1}</span>
                     </div>
-                    <p class="khmer-font text-indigo-600 font-bold mb-6">${t.kh}</p>
-                    <div class="formula-box mb-6">
-                        <h5 class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">Core Formula</h5>
-                        <div class="space-y-1.5 font-mono text-[11px] font-bold">
-                            <div class="flex gap-2"><span class="text-emerald-500 font-black">(+)</span> <span>${t.pos}</span></div>
-                        </div>
+                    <p class="text-gray-700 font-bold text-sm mb-3">${t.kh}</p>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 mb-4 text-center">
+                        <span class="text-xs text-gray-400 block mb-1 uppercase tracking-tighter font-bold">Formula</span>
+                        <code class="text-blue-600 font-black text-sm">${t.formula}</code>
                     </div>
-                    <div class="space-y-6">
+                    <div class="space-y-3">
                         <div>
-                            <h5 class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Signal Words</h5>
-                            <div class="flex flex-wrap gap-1.5">
-                                ${t.signals.slice(0, 3).map(s => `<span class="signal-pill">${s}</span>`).join('')}
-                                ${t.signals.length > 3 ? `<span class="text-[10px] font-bold text-slate-300 ml-1">+${t.signals.length-3}</span>` : ''}
-                            </div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Usage</p>
+                            <p class="text-xs text-gray-600 leading-relaxed">${t.def}</p>
                         </div>
                         <div>
-                            <h5 class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Quick Example</h5>
-                            <p class="text-sm font-bold text-slate-700 truncate">${t.examples[0].en}</p>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Examples</p>
+                            <ul class="list-disc list-inside text-xs text-gray-600 mt-1 space-y-1">
+                                ${t.examples.map(ex => `<li>${ex}</li>`).join('')}
+                            </ul>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function openModal(index) {
-            const t = fullData[index];
-            currentTenseIndex = index;
-            const modal = document.getElementById('detail-modal');
+        function shuffleVocab(e) {
+            for (let i = vocabWords.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [vocabWords[i], vocabWords[j]] = [vocabWords[j], vocabWords[i]];
+            }
+            vocabIndex = 0;
+            updateFlashcard();
             
-            document.getElementById('modal-tag').className = `tag tag-${t.group} mb-3 inline-block`;
-            document.getElementById('modal-tag').innerText = t.group;
-            document.getElementById('modal-title').innerText = t.name;
-            document.getElementById('modal-kh').innerText = t.kh;
-            document.getElementById('modal-pos').innerText = t.pos;
-            document.getElementById('modal-neg').innerText = t.neg;
-            document.getElementById('modal-que').innerText = t.que;
-            document.getElementById('modal-usage').innerText = t.usage;
-            
-            document.getElementById('modal-signals').innerHTML = t.signals.map(s => `<span class="signal-pill">${s}</span>`).join('');
-            document.getElementById('modal-examples').innerHTML = (t.examples || []).map((ex, i) => `
-                <div class="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span class="w-6 h-6 flex-shrink-0 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-[10px] font-black text-slate-400">${i+1}</span>
-                    <div>
-                        <p class="text-sm font-bold text-slate-800">${ex.en}</p>
-                        <p class="khmer-font text-slate-400 text-xs mt-1">${ex.kh}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('btn-start-quiz').onclick = () => {
-                closeModal();
-                startQuiz(index);
-            };
-
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('detail-modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        function showHome() {
-            document.getElementById('view-lessons').classList.remove('hidden');
-            document.getElementById('view-quiz-setup').classList.add('hidden');
-            document.getElementById('view-quiz-active').classList.add('hidden');
-            setActiveNav('lessons');
-        }
-
-        function showQuizSelection() {
-            document.getElementById('view-lessons').classList.add('hidden');
-            document.getElementById('view-quiz-setup').classList.remove('hidden');
-            document.getElementById('view-quiz-active').classList.add('hidden');
-            setActiveNav('practice');
-            renderQuizGrid();
-        }
-
-        function setActiveNav(type) {
-            const l = document.getElementById('nav-lessons');
-            const p = document.getElementById('nav-practice');
-            if(type === 'lessons') {
-                l.className = "px-6 py-2 rounded-xl text-sm font-bold transition-all bg-white shadow-sm text-indigo-600";
-                p.className = "px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500";
-            } else {
-                p.className = "px-6 py-2 rounded-xl text-sm font-bold transition-all bg-white shadow-sm text-indigo-600";
-                l.className = "px-6 py-2 rounded-xl text-sm font-bold transition-all text-slate-500";
+            if(e && e.target) {
+                const btn = e.target.closest('button');
+                if(btn) {
+                    const originalHtml = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check mr-2"></i> រួចរាល់';
+                    setTimeout(() => btn.innerHTML = originalHtml, 1000);
+                }
             }
         }
 
-        function renderQuizGrid() {
-            const grid = document.getElementById('quiz-grid');
-            grid.innerHTML = fullData.map((t, i) => `
-                <button onclick="startQuiz(${i})" class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:border-indigo-500 hover:shadow-md transition-all text-left group">
-                    <span class="text-[8px] font-black text-indigo-400 uppercase tracking-widest block mb-1">Tense ${i+1}</span>
-                    <h4 class="font-black text-slate-800 truncate group-hover:text-indigo-600">${t.name}</h4>
+        function updateFlashcard() {
+            const word = vocabWords[vocabIndex];
+            document.getElementById('vocab-en').innerText = word.en;
+            document.getElementById('vocab-kh').innerText = word.kh;
+            document.getElementById('vocab-sentence-en').innerText = `"${word.s}"`;
+            document.getElementById('vocab-sentence-kh').innerText = word.ks;
+            document.getElementById('vocab-progress').innerText = `${vocabIndex + 1} / ${vocabWords.length}`;
+            
+            const container = document.getElementById('flashcard-container');
+            container.classList.remove('fade-in');
+            void container.offsetWidth; 
+            container.classList.add('fade-in');
+        }
+
+        function nextVocab() {
+            vocabIndex = (vocabIndex + 1) % vocabWords.length;
+            updateFlashcard();
+        }
+
+        function speakWord() {
+            const word = vocabWords[vocabIndex].en;
+            const sentence = vocabWords[vocabIndex].s;
+            const utterWord = new SpeechSynthesisUtterance(word);
+            utterWord.lang = 'en-US';
+            utterWord.rate = 0.8;
+            utterWord.onend = () => {
+                setTimeout(() => {
+                    const utterSentence = new SpeechSynthesisUtterance(sentence);
+                    utterSentence.lang = 'en-US';
+                    utterSentence.rate = 0.9;
+                    window.speechSynthesis.speak(utterSentence);
+                }, 500);
+            };
+            window.speechSynthesis.speak(utterWord);
+        }
+
+        function generateQuiz() {
+            const q = quizzes[currentQuizIndex % quizzes.length];
+            document.getElementById('quiz-question').innerText = q.q;
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = q.options.map(opt => `
+                <button onclick="checkQuiz(this, '${opt}')" class="quiz-opt w-full text-left p-4 rounded-2xl border border-gray-100 hover:border-blue-400 active:bg-blue-50 transition font-bold text-gray-700 flex justify-between items-center group">
+                    <span>${opt}</span>
+                    <i class="fas fa-chevron-right text-gray-300 group-hover:text-blue-400 transition"></i>
                 </button>
             `).join('');
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('next-quiz').classList.add('hidden');
         }
 
-        function generateQuestion(tenseIndex) {
-            const tense = fullData[tenseIndex];
-            const sub = subjects[Math.floor(Math.random() * subjects.length)];
-            const verb = tense.verbs[Math.floor(Math.random() * tense.verbs.length)];
-            const obj = objects[Math.floor(Math.random() * objects.length)];
-            const signal = tense.signals[Math.floor(Math.random() * tense.signals.length)];
-
-            let question = "";
-            let correct = "";
-            let distractors = [];
-
-            const isThirdPerson = ["He", "She", "It", "John", "The student"].includes(sub);
-
-            switch(tense.name) {
-                case "Present Simple":
-                    question = `${sub} ________ ${obj} ${signal}.`;
-                    correct = isThirdPerson ? (verb === "go" ? "goes" : verb === "watch" ? "watches" : verb === "study" ? "studies" : verb + "s") : verb;
-                    distractors = [verb + "ing", "is " + verb, "has " + verb];
-                    break;
-                case "Present Continuous":
-                    question = `Look! ${sub} ________ ${obj} now.`;
-                    const be = sub === "I" ? "am" : isThirdPerson ? "is" : "are";
-                    correct = `${be} ${verb}`;
-                    distractors = [verb, "is " + verb.replace("ing", ""), "has been " + verb];
-                    break;
-                case "Present Perfect":
-                    question = `${sub} ________ ${obj} already.`;
-                    const have = isThirdPerson ? "has" : "have";
-                    correct = `${have} ${verb}`;
-                    distractors = [`${have} ${verb}ing`, "did " + verb, "is " + verb];
-                    break;
-                case "Past Simple":
-                    question = `${sub} ________ ${obj} ${signal}.`;
-                    correct = verb;
-                    distractors = [verb.replace("ed", ""), "is " + verb, "will " + verb];
-                    break;
-                case "Future Simple":
-                    question = `${sub} ________ ${obj} tomorrow.`;
-                    correct = `will ${verb}`;
-                    distractors = ["is " + verb, verb + "ed", "going to " + verb];
-                    break;
-                default:
-                    // Fallback generator for more complex tenses
-                    question = `${sub} ________ ${obj} ${signal}.`;
-                    correct = tense.pos.replace("S + ", "").replace("V1", verb).replace("V3", verb).replace("V-ing", verb);
-                    distractors = ["is " + verb, "was " + verb, "did " + verb];
-            }
-
-            return { 
-                text: question, 
-                answer: correct, 
-                options: [correct, ...distractors].sort(() => Math.random() - 0.5) 
-            };
-        }
-
-        function startQuiz(index) {
-            currentTenseIndex = index;
-            qCount = 0; score = 0;
-            document.getElementById('view-lessons').classList.add('hidden');
-            document.getElementById('view-quiz-setup').classList.add('hidden');
-            document.getElementById('view-quiz-active').classList.remove('hidden');
-            document.getElementById('quiz-title').innerText = fullData[index].name;
-            document.getElementById('feedback-text').innerText = "";
-            setActiveNav('practice');
-            nextQuestion();
-        }
-
-        function nextQuestion() {
-            qCount++;
-            if(qCount > 30) {
-                showResult();
-                return;
-            }
-            document.getElementById('q-current').innerText = qCount;
-            document.getElementById('score-display').innerText = score;
-            document.getElementById('quiz-progress').style.width = (qCount/30*100) + '%';
-            document.getElementById('feedback-text').innerText = "";
-            
-            const qData = generateQuestion(currentTenseIndex);
-            currentCorrectAnswer = qData.answer;
-            
-            document.getElementById('question-text').innerText = qData.text;
-            const container = document.getElementById('options-container');
-            container.innerHTML = qData.options.map(opt => `
-                <button onclick="checkAnswer(this, '${opt}')" class="option-btn p-6 rounded-2xl font-bold text-slate-700 bg-white">${opt}</button>
-            `).join('');
-        }
-
-        function checkAnswer(btn, selected) {
-            const btns = document.querySelectorAll('.option-btn');
-            btns.forEach(b => b.disabled = true);
-
-            if(selected === currentCorrectAnswer) {
-                score++;
-                btn.classList.add('correct');
-                document.getElementById('feedback-text').innerText = "Excellent! Correct Answer.";
-                document.getElementById('feedback-text').className = "h-6 font-bold text-sm text-emerald-500";
+        function checkQuiz(btn, answer) {
+            const q = quizzes[currentQuizIndex % quizzes.length];
+            const feedback = document.getElementById('quiz-feedback');
+            document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+            feedback.classList.remove('hidden');
+            if (answer === q.ans) {
+                btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+                feedback.innerHTML = '<i class="fas fa-check-circle mr-2"></i> ចម្លើយត្រឹមត្រូវ 🎉 (+10 XP)';
+                feedback.className = "mt-6 p-4 rounded-2xl text-sm font-bold bg-green-50 text-green-700 border border-green-200 text-center";
+                currentXp += 10;
+                document.getElementById('user-xp').innerText = currentXp;
             } else {
-                btn.classList.add('wrong');
-                document.getElementById('feedback-text').innerText = `Oops! The correct answer was: ${currentCorrectAnswer}`;
-                document.getElementById('feedback-text').className = "h-6 font-bold text-sm text-rose-500";
+                btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+                feedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> ចម្លើយគឺ: <b>${q.ans}</b>`;
+                feedback.className = "mt-6 p-4 rounded-2xl text-sm font-bold bg-red-50 text-red-700 border border-red-200 text-center";
             }
-
-            setTimeout(nextQuestion, 1200);
+            document.getElementById('next-quiz').classList.remove('hidden');
+            currentQuizIndex++;
         }
 
-        function showResult() {
-            const container = document.getElementById('options-container');
-            document.getElementById('question-text').innerText = "Quiz Completed!";
-            container.innerHTML = `
-                <div class="col-span-full py-6 space-y-6">
-                    <div class="text-6xl font-black text-indigo-600">${Math.round(score/30*100)}%</div>
-                    <p class="font-bold text-slate-500">You got ${score} out of 30 questions right.</p>
-                    <button onclick="showQuizSelection()" class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black shadow-lg hover:bg-indigo-700 transition-all">Back to Practice List</button>
-                </div>
-            `;
-        }
-
-        window.onload = renderLessons;
+        window.onload = function() {
+            renderTenses();
+            shuffleVocab(); 
+            generateQuiz();
+            switchTab('home');
+        };
     </script>
 </body>
 </html>
